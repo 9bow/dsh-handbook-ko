@@ -186,4 +186,4 @@
   * [综合统计](/docs/cases-round3.md?id=综合统计)
 
 ---
-*[English](./README.en.md) · [GitHub 仓库](https://github.com/Electricitysheep/dsh-handbook)*
+*<span class="dsh-lang-links">[中文](./README.md) · [English](./README.en.md) · [한국어](./README.ko.md)</span> · [GitHub 仓库](https://github.com/Electricitysheep/dsh-handbook)*

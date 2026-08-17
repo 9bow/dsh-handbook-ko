@@ -478,8 +478,10 @@
     }
     .dsh-lang-toggle .sep { color: var(--muted); font-weight: 400; }
     .dsh-lang-toggle .l { opacity: 0.45; transition: opacity 0.15s, color 0.15s; }
+    .dsh-lang-toggle .l:hover { opacity: 0.75; }
     .dsh-lang-toggle[data-active="zh"] .l-zh,
-    .dsh-lang-toggle[data-active="en"] .l-en { opacity: 1; color: var(--accent); }
+    .dsh-lang-toggle[data-active="en"] .l-en,
+    .dsh-lang-toggle[data-active="ko"] .l-ko { opacity: 1; color: var(--accent); }
     .dsh-lang-toggle:hover { border-color: var(--accent); }
     .dsh-theme-toggle {
       width: 40px; height: 40px; border-radius: 50%;
@@ -521,10 +523,10 @@
   </div>
 
   <div class="dsh-controls" id="dshControls">
-    <button class="dsh-lang-toggle" id="dshLangToggle" type="button" data-active="zh"
-            title="切换语言 / Switch language" aria-label="切换语言">
-      <span class="l l-zh">中</span><span class="sep">/</span><span class="l l-en">EN</span>
-    </button>
+    <div class="dsh-lang-toggle" id="dshLangToggle" data-active="zh"
+         role="group" title="切换语言 / 언어 전환 / Switch language" aria-label="切换语言 / 언어 전환 / Switch language">
+      <span class="l l-zh" data-lang="zh" role="button" tabindex="0" aria-label="中文">中</span><span class="sep">/</span><span class="l l-en" data-lang="en" role="button" tabindex="0" aria-label="English">EN</span><span class="sep">/</span><span class="l l-ko" data-lang="ko" role="button" tabindex="0" aria-label="한국어">한</span>
+    </div>
     <button class="dsh-theme-toggle" id="dshThemeToggle" type="button" aria-label="切换亮暗主题" title="切换亮 / 暗主题">
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -589,16 +591,18 @@
     }
 
     /* ── 语言切换 ──────────────────────────────────────────────
-       仓库有 14 章 + README 的英文版（.en.md）。语言由当前页面
-       URL 决定（.en 结尾即英文模式）：英文模式下侧栏链接指向
-       对应英文版、分组标签翻译；无英文版的页面（附录等）保持中文。
+       仓库有 16 章 + README 的英文版（.en.md）与韩文版（.ko.md）。
+       语言由当前页面 URL 后缀决定（.en/.ko 结尾）：非中文模式下
+       侧栏链接指向对应语言版本、分组标签翻译；无对应语言版本的
+       页面（附录等）保持中文。
        ──────────────────────────────────────────────────────────── */
     var DSH_EN_PAGES = [
       'README',
       'docs/01-intro', 'docs/02-quickstart', 'docs/03-profiles', 'docs/04-plugin-dev',
       'docs/05-cases', 'docs/06-advanced', 'docs/07-ecosystem', 'docs/08-tools-context',
       'docs/09-mcp-subagent-workflow', 'docs/10-complex-cases', 'docs/11-future',
-      'docs/12-limitations', 'docs/13-security', 'docs/14-cost'
+      'docs/12-limitations', 'docs/13-security', 'docs/14-cost',
+      'docs/15-ecosystem-report', 'docs/16-migration'
     ];
     var DSH_EN_LABELS = {
       'README': 'Home',
@@ -615,7 +619,9 @@
       'docs/11-future': 'Ch 11 · Future Outlook',
       'docs/12-limitations': 'Ch 12 · Limitations',
       'docs/13-security': 'Ch 13 · Security',
-      'docs/14-cost': 'Ch 14 · Cost & Caching'
+      'docs/14-cost': 'Ch 14 · Cost & Caching',
+      'docs/15-ecosystem-report': 'Ch 15 · Ecosystem Report',
+      'docs/16-migration': 'Ch 16 · Migrating from Claude Code'
     };
     var DSH_EN_GROUPS = {
       '阶段 1 · 入门': 'Stage 1 · Basics',
@@ -625,20 +631,67 @@
       '阶段 5 · 进阶': 'Stage 5 · Advanced',
       '附录': 'Appendix'
     };
+    var DSH_KO_PAGES = [
+      'README',
+      'docs/01-intro', 'docs/02-quickstart', 'docs/03-profiles', 'docs/04-plugin-dev',
+      'docs/05-cases', 'docs/06-advanced', 'docs/07-ecosystem', 'docs/08-tools-context',
+      'docs/09-mcp-subagent-workflow', 'docs/10-complex-cases', 'docs/11-future',
+      'docs/12-limitations', 'docs/13-security', 'docs/14-cost',
+      'docs/15-ecosystem-report', 'docs/16-migration'
+    ];
+    var DSH_KO_LABELS = {
+      'README': '홈',
+      'docs/01-intro': '제1장 · Harness 이해하기',
+      'docs/02-quickstart': '제2장 · 5분 빠른 시작',
+      'docs/03-profiles': '제3장 · profile과 플러그인 시스템',
+      'docs/04-plugin-dev': '제4장 · 플러그인 개발 실전',
+      'docs/05-cases': '제5장 · 활용 시나리오',
+      'docs/06-advanced': '제6장 · 심화와 성능 튜닝',
+      'docs/07-ecosystem': '제7장 · 생태계와 리소스',
+      'docs/08-tools-context': '제8장 · 도구와 컨텍스트 시스템',
+      'docs/09-mcp-subagent-workflow': '제9장 · MCP·서브에이전트·워크플로우',
+      'docs/10-complex-cases': '제10장 · 복잡한 실전 사례',
+      'docs/11-future': '제11장 · 미래 전망',
+      'docs/12-limitations': '제12장 · 알려진 한계와 경계',
+      'docs/13-security': '제13장 · 보안과 샌드박스',
+      'docs/14-cost': '제14장 · 캐시와 비용',
+      'docs/15-ecosystem-report': '제15장 · 생태계 전체 리포트',
+      'docs/16-migration': '제16장 · Claude Code에서 이전하기'
+    };
+    var DSH_KO_GROUPS = {
+      '阶段 1 · 入门': '1단계 · 입문',
+      '阶段 2 · 开发': '2단계 · 개발',
+      '阶段 3 · 实战': '3단계 · 실전',
+      '阶段 4 · 生态': '4단계 · 생태계',
+      '阶段 5 · 进阶': '5단계 · 심화',
+      '附录': '부록'
+    };
+    var DSH_LANG_DATA = {
+      en: { pages: DSH_EN_PAGES, labels: DSH_EN_LABELS, groups: DSH_EN_GROUPS },
+      ko: { pages: DSH_KO_PAGES, labels: DSH_KO_LABELS, groups: DSH_KO_GROUPS }
+    };
 
     function dshCurrentPath() {
       var p = (location.hash || '#/').replace(/^#\/?/, '').split('?')[0].replace(/\.md$/, '');
       return p || 'README';
     }
-    function dshIsEnglish() { return /\.en$/.test(dshCurrentPath()); }
+    function dshCurrentLang() {
+      var p = dshCurrentPath();
+      if (/\.en$/.test(p)) return 'en';
+      if (/\.ko$/.test(p)) return 'ko';
+      return 'zh';
+    }
+    function dshStripLangSuffix(p) { return p.replace(/\.(en|ko)$/, ''); }
 
     // 侧栏链接/标签按当前语言重写（幂等：始终基于首次记录的原文）
+    // 侧栏底部的语言导航行（.dsh-lang-links）是固定的三条静态链接，不参与这里的重写
     function dshApplyLang() {
-      var en = dshIsEnglish();
+      var lang = dshCurrentLang();
       var btn = document.getElementById('dshLangToggle');
-      if (btn) btn.setAttribute('data-active', en ? 'en' : 'zh');
+      if (btn) btn.setAttribute('data-active', lang);
 
       document.querySelectorAll('.sidebar-nav a, .sidebar > p a, .sidebar p a').forEach(function (a) {
+        if (a.closest('.dsh-lang-links')) return;
         var href = a.getAttribute('href') || '';
         // 页内子导航（?id= 锚点，docsify 按当前页标题生成）不参与语言重写，
         // 否则其路径会被归一成页面路径，文本被误改成页面标题
@@ -648,40 +701,23 @@
           a.dataset.origText = a.textContent;
         }
         var base = a.dataset.origHref.replace(/^#\/?/, '').replace(/\.md$/, '').split('?')[0];
-        var baseZh = base.replace(/\.en$/, '');
-        if (en) {
-          if (DSH_EN_PAGES.indexOf(baseZh) >= 0) {
-            a.setAttribute('href', '#/' + baseZh + '.en');
-            a.textContent = DSH_EN_LABELS[baseZh] || a.dataset.origText;
-          } else {
-            a.setAttribute('href', a.dataset.origHref);
-            a.textContent = a.dataset.origText; // 无英文版，保持中文
-          }
+        var baseZh = dshStripLangSuffix(base);
+        var data = DSH_LANG_DATA[lang];
+        if (data && data.pages.indexOf(baseZh) >= 0) {
+          a.setAttribute('href', '#/' + baseZh + '.' + lang);
+          a.textContent = data.labels[baseZh] || a.dataset.origText;
         } else {
           a.setAttribute('href', a.dataset.origHref);
-          a.textContent = a.dataset.origText;
+          a.textContent = a.dataset.origText; // 无对应语言版本，保持中文
         }
       });
 
       // 分组标签（**阶段 N · xxx** 渲染为 sidebar-nav 直接子级 p > strong）
       document.querySelectorAll('.sidebar-nav > p strong').forEach(function (s) {
         if (s.dataset.origText == null) s.dataset.origText = s.textContent;
-        s.textContent = dshIsEnglish() ? (DSH_EN_GROUPS[s.dataset.origText] || s.dataset.origText)
-                                       : s.dataset.origText;
+        var data = DSH_LANG_DATA[lang];
+        s.textContent = (data && data.groups[s.dataset.origText]) || s.dataset.origText;
       });
-
-      // 侧栏底部语言链接：英文模式下从 "English" 变为 "中文"
-      var footerLink = document.querySelector('.sidebar p a[href*="README.en"]');
-      if (footerLink) {
-        if (footerLink.dataset.origText == null) footerLink.dataset.origText = footerLink.textContent;
-        if (dshIsEnglish()) {
-          footerLink.textContent = '中文';
-          footerLink.setAttribute('href', '#/README.md');
-        } else {
-          footerLink.textContent = footerLink.dataset.origText;
-          footerLink.setAttribute('href', footerLink.dataset.origHref || footerLink.getAttribute('href'));
-        }
-      }
     }
     function dshLangPlugin(hook) {
       hook.doneEach(dshApplyLang);
@@ -749,17 +785,31 @@
         btn.blur();
       });
 
-      // 语言切换：跳到当前页面的另一语言版本；无对应版本时回对方首页
-      document.getElementById('dshLangToggle').addEventListener('click', function () {
-        var path = dshCurrentPath();
+      // 语言切换：点击 中/EN/한 任一段，跳到当前页面的对应语言版本；无对应版本时回该语言首页
+      var langToggle = document.getElementById('dshLangToggle');
+      function dshHandleLangActivate(span) {
+        var targetLang = span.getAttribute('data-lang');
+        var base = dshStripLangSuffix(dshCurrentPath());
         var target;
-        if (/\.en$/.test(path)) {
-          target = path.replace(/\.en$/, '');
+        if (targetLang === 'zh') {
+          target = base;
         } else {
-          target = DSH_EN_PAGES.indexOf(path) >= 0 ? path + '.en' : 'README.en';
+          var data = DSH_LANG_DATA[targetLang];
+          target = (data && data.pages.indexOf(base) >= 0) ? base + '.' + targetLang : 'README.' + targetLang;
         }
         location.hash = '#/' + target;
-        this.blur();
+        span.blur();
+      }
+      langToggle.addEventListener('click', function (e) {
+        var span = e.target.closest && e.target.closest('.l');
+        if (span) dshHandleLangActivate(span);
+      });
+      langToggle.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        var span = e.target.closest && e.target.closest('.l');
+        if (!span) return;
+        e.preventDefault();
+        dshHandleLangActivate(span);
       });
 
       window.addEventListener('resize', dshPlaceThemeToggle);

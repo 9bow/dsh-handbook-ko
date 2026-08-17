@@ -1,6 +1,6 @@
 # DeepSeek Harness 白皮书 · dsh-handbook
 
-> **DeepSeek Harness 中文手册 × 生态观察中心**——从 0 到 1 玩转 dsh，跟着 780 帖讨论区看懂生态 · 中文 · [English](./README.en.md)
+> **DeepSeek Harness 中文手册 × 生态观察中心**——从 0 到 1 玩转 dsh，跟着 780 帖讨论区看懂生态 · 中文 · [English](./README.en.md) · [한국어](./README.ko.md)
 
 **📖 [在线阅读](https://electricitysheep.github.io/dsh-handbook/) · 📄 [下载 PDF](./DeepSeek-Harness-白皮书.pdf) · ⭐ [点 Star 支持](https://github.com/Electricitysheep/dsh-handbook/stargazers)**
 
@@ -431,6 +431,7 @@ agent-default-model:
 
 - **中文完整版**：[DeepSeek-Harness-白皮书.pdf](./DeepSeek-Harness-白皮书.pdf)（15 章 + 附录 ABC，~130k+ 字符，5.5MB）
 - **英文完整版**：[DeepSeek-Harness-Handbook.pdf](./DeepSeek-Harness-Handbook.pdf)（15 章 + 附录，83 页，约 160k 字符，1.7MB）
+- **韩文完整版**：[DeepSeek-Harness-핸드북.pdf](./DeepSeek-Harness-핸드북.pdf)（16 章 + 附录 ABC，148 页，3.9MB）
 
 ## 🌐 与生态联动
 

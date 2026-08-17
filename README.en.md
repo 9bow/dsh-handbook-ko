@@ -1,7 +1,7 @@
 # DeepSeek Harness Handbook · dsh-handbook
 
 > **From zero to one with DeepSeek Harness — the beginner's encyclopedia for DeepSeek's open-source agent runtime.**
-> English · [中文](./README.md)
+> English · [中文](./README.md) · [한국어](./README.ko.md)
 
 **📖 [Read online](https://electricitysheep.github.io/dsh-handbook/) · 📄 [Download PDF](./DeepSeek-Harness-Handbook.pdf) · ⭐ [Star us](https://github.com/Electricitysheep/dsh-handbook/stargazers)**
 
@@ -386,6 +386,7 @@ agent-default-model:
 
 - **Chinese full edition**: [DeepSeek-Harness-白皮书.pdf](./DeepSeek-Harness-白皮书.pdf) (15 chapters + appendices A–C, ~130k+ chars, 5.5MB, professional typesetting: cover/TOC/styles)
 - **English edition**: [DeepSeek-Harness-Handbook.pdf](./DeepSeek-Harness-Handbook.pdf) (14 chapters + appendices, 81 pages, ~150k chars, 1.6MB, professional typesetting: cover/TOC/styles; appendices in Chinese original — EN edition covers 14 chapters; Ch. 15 available online)
+- **Korean edition**: [DeepSeek-Harness-핸드북.pdf](./DeepSeek-Harness-핸드북.pdf) (16 chapters + appendices A–C, 148 pages, 3.9MB; appendices in Chinese original)
 
 ## 🌐 Ecosystem Links
 
