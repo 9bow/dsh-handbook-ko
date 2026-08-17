@@ -1,7 +1,7 @@
 # DeepSeek Harness Handbook · dsh-handbook
 
 > **From zero to one with DeepSeek Harness — the beginner's encyclopedia for DeepSeek's open-source agent runtime.**
-> English · [中文](./README.md) · [한국어](./README.ko.md)
+> English · [中文](./README.zh.md) · [한국어](./README.md)
 
 **📖 [Read online](https://electricitysheep.github.io/dsh-handbook/) · 📄 [Download PDF](./DeepSeek-Harness-Handbook.pdf) · ⭐ [Star us](https://github.com/Electricitysheep/dsh-handbook/stargazers)**
 

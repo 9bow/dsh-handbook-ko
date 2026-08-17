@@ -666,22 +666,36 @@
       '阶段 5 · 进阶': '5단계 · 심화',
       '附录': '부록'
     };
+    // README 是本 fork（ko 分支）的门面，默认语言是韩文（无后缀 = 韩文）；
+    // 中文原文挪到 README.zh（.zh 后缀），英文仍是 README.en。
+    // 其余所有 docs/* 页面维持原有约定：无后缀 = 中文，.en/.ko 为译文。
+    var DSH_HOME_PAGE = 'README';
+    var DSH_HOME_NATIVE_LANG = 'ko';
+    var DSH_ZH_PAGES = ['README'];
+    var DSH_ZH_LABELS = { 'README': '首页' }; // 首页
     var DSH_LANG_DATA = {
       en: { pages: DSH_EN_PAGES, labels: DSH_EN_LABELS, groups: DSH_EN_GROUPS },
-      ko: { pages: DSH_KO_PAGES, labels: DSH_KO_LABELS, groups: DSH_KO_GROUPS }
+      ko: { pages: DSH_KO_PAGES, labels: DSH_KO_LABELS, groups: DSH_KO_GROUPS },
+      zh: { pages: DSH_ZH_PAGES, labels: DSH_ZH_LABELS, groups: {} }
     };
 
+    function dshNativeLangOf(base) {
+      return base === DSH_HOME_PAGE ? DSH_HOME_NATIVE_LANG : 'zh';
+    }
+    function dshHomeFor(lang) {
+      return lang === dshNativeLangOf(DSH_HOME_PAGE) ? DSH_HOME_PAGE : DSH_HOME_PAGE + '.' + lang;
+    }
     function dshCurrentPath() {
       var p = (location.hash || '#/').replace(/^#\/?/, '').split('?')[0].replace(/\.md$/, '');
-      return p || 'README';
+      return p || DSH_HOME_PAGE;
     }
     function dshCurrentLang() {
       var p = dshCurrentPath();
-      if (/\.en$/.test(p)) return 'en';
-      if (/\.ko$/.test(p)) return 'ko';
-      return 'zh';
+      var m = /\.(en|ko|zh)$/.exec(p);
+      if (m) return m[1];
+      return dshNativeLangOf(p);
     }
-    function dshStripLangSuffix(p) { return p.replace(/\.(en|ko)$/, ''); }
+    function dshStripLangSuffix(p) { return p.replace(/\.(en|ko|zh)$/, ''); }
 
     // 侧栏链接/标签按当前语言重写（幂等：始终基于首次记录的原文）
     // 侧栏底部的语言导航行（.dsh-lang-links）是固定的三条静态链接，不参与这里的重写
@@ -700,15 +714,19 @@
           a.dataset.origHref = href;
           a.dataset.origText = a.textContent;
         }
-        var base = a.dataset.origHref.replace(/^#\/?/, '').replace(/\.md$/, '').split('?')[0];
-        var baseZh = dshStripLangSuffix(base);
+        var base = dshStripLangSuffix(a.dataset.origHref.replace(/^#\/?/, '').replace(/\.md$/, '').split('?')[0]);
+        if (lang === dshNativeLangOf(base)) {
+          a.setAttribute('href', '#/' + base);
+          a.textContent = a.dataset.origText;
+          return;
+        }
         var data = DSH_LANG_DATA[lang];
-        if (data && data.pages.indexOf(baseZh) >= 0) {
-          a.setAttribute('href', '#/' + baseZh + '.' + lang);
-          a.textContent = data.labels[baseZh] || a.dataset.origText;
+        if (data && data.pages.indexOf(base) >= 0) {
+          a.setAttribute('href', '#/' + base + '.' + lang);
+          a.textContent = data.labels[base] || a.dataset.origText;
         } else {
-          a.setAttribute('href', a.dataset.origHref);
-          a.textContent = a.dataset.origText; // 无对应语言版本，保持中文
+          a.setAttribute('href', '#/' + base);
+          a.textContent = a.dataset.origText; // 无对应语言版本，回退到该页原生语言
         }
       });
 
@@ -791,11 +809,11 @@
         var targetLang = span.getAttribute('data-lang');
         var base = dshStripLangSuffix(dshCurrentPath());
         var target;
-        if (targetLang === 'zh') {
+        if (targetLang === dshNativeLangOf(base)) {
           target = base;
         } else {
           var data = DSH_LANG_DATA[targetLang];
-          target = (data && data.pages.indexOf(base) >= 0) ? base + '.' + targetLang : 'README.' + targetLang;
+          target = (data && data.pages.indexOf(base) >= 0) ? base + '.' + targetLang : dshHomeFor(targetLang);
         }
         location.hash = '#/' + target;
         span.blur();

@@ -8,7 +8,8 @@
 
 ## Documentation
 
-- [Chinese README (canonical)](README.md)
+- [Korean README (canonical, this fork)](README.md)
+- [Chinese README](README.zh.md)
 - [English README](README.en.md)
 - [Online docs site (searchable)](https://electricitysheep.github.io/dsh-handbook/)
 - [Cheatsheet (one-page quick card)](docs/cheatsheet.md)

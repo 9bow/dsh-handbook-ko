@@ -1,10 +1,10 @@
-# DeepSeek Harness 白皮书 · dsh-handbook
+# DeepSeek Harness 백서 · dsh-handbook
 
-> **DeepSeek Harness 中文手册 × 生态观察中心**——从 0 到 1 玩转 dsh，跟着 780 帖讨论区看懂生态 · 中文 · [English](./README.en.md) · [한국어](./README.ko.md)
+> **DeepSeek Harness 한국어 핸드북 × 생태계 관찰 센터** —— 0부터 1까지 dsh를 익히고, 780개 디스커션 스레드로 생태계를 이해하기 · 한국어 · [中文](./README.zh.md) · [English](./README.en.md)
 
-**📖 [在线阅读](https://electricitysheep.github.io/dsh-handbook/) · 📄 [下载 PDF](./DeepSeek-Harness-白皮书.pdf) · ⭐ [点 Star 支持](https://github.com/Electricitysheep/dsh-handbook/stargazers)**
+**📖 [온라인으로 읽기](https://electricitysheep.github.io/dsh-handbook/) · 📄 [PDF 다운로드](./DeepSeek-Harness-핸드북.pdf) · ⭐ [Star로 응원하기](https://github.com/Electricitysheep/dsh-handbook/stargazers)**
 
-**1804 插件 · 780 帖讨论区 · 15 章手册 · 195 帖社区响应 · 280+ Stars**
+**1804개 플러그인 · 780개 디스커션 스레드 · 15개 챕터 핸드북 · 195개 커뮤니티 응답 · 280+ Stars**
 
 <p align="center">
   <img src="./docs/assets/banner.svg" alt="dsh-handbook banner" width="720"/>
@@ -14,8 +14,8 @@
 
 ![GitHub stars](https://img.shields.io/github/stars/Electricitysheep/dsh-handbook?style=flat&color=yellow)
 ![GitHub release](https://img.shields.io/github/v/tag/Electricitysheep/dsh-handbook?label=release&color=success)
-![dsh-handbook](https://img.shields.io/badge/dsh--handbook-白皮书-blue)
-![chapters](https://img.shields.io/badge/章节-15-green)
+![dsh-handbook](https://img.shields.io/badge/dsh--handbook-백서-blue)
+![chapters](https://img.shields.io/badge/챕터-15-green)
 ![pdf](https://img.shields.io/badge/PDF-5.5MB-orange)
 ![license](https://img.shields.io/badge/license-CC--BY--NC--SA--4.0-lightgrey)
 ![dsh](https://img.shields.io/badge/dsh-0.1.0--rc.6-8A2BE2)
@@ -23,346 +23,345 @@
 </div>
 
 > [!WARNING]
-> dsh 当前为 `0.1.0-rc.6`（预发布阶段），生产环境请谨慎评估，详见 [ℹ️ 版本说明](#ℹ️-版本说明)。
+> dsh는 현재 `0.1.0-rc.6`(프리릴리스 단계)입니다. 프로덕션 환경 도입은 신중히 평가하세요. 자세한 내용은 [ℹ️ 버전 설명](#ℹ️-버전-설명)을 참고하세요.
 
-## 🚀 快速体验（30 秒）
+## 🚀 30초 빠른 체험
 
 ```bash
-# 1. 安装（需要 Node.js ≥ 22）
+# 1. 설치 (Node.js ≥ 22 필요)
 npx -y @deepseek-ai/dsh web
 
-# 2. 浏览器打开 http://127.0.0.1:3080，开始对话
-# 3. 或跑一次性任务（适合脚本/CI）
-dsh --profile headless "你好，请用一句话介绍自己"
+# 2. 브라우저에서 http://127.0.0.1:3080 열고 대화 시작
+# 3. 또는 일회성 작업 실행 (스크립트/CI에 적합)
+dsh --profile headless "안녕, 한 문장으로 자기소개 해줘"
 ```
 
-> 想系统学？看 [🗺 学习路径（3 天计划）](./docs/roadmap.md)；想先跑？[第 2 章：五分钟快速上手](./docs/02-quickstart.md)；想速查？[📇 一页速查卡](./docs/cheatsheet.md)
+> 체계적으로 배우고 싶다면 [🗺 학습 경로(3일 계획)](./docs/roadmap.md)를, 일단 실행부터 해보고 싶다면 [제2장: 5분 빠른 시작](./docs/02-quickstart.ko.md)을, 빠르게 찾아보고 싶다면 [📇 한 페이지 치트시트](./docs/cheatsheet.md)를 참고하세요
 
 <p align="center">
-  <img src="./docs/assets/demo-webui.gif" alt="dsh Web UI 实测演示" width="720"/>
+  <img src="./docs/assets/demo-webui.gif" alt="dsh Web UI 실측 데모" width="720"/>
   <br/>
-  <sub><b>30 秒看懂 dsh Web UI</b>：新建会话 → 输入任务 → 模型选择 → 发送 → AI 回复</sub>
+  <sub><b>30초 만에 이해하는 dsh Web UI</b>: 새 세션 → 작업 입력 → 모델 선택 → 전송 → AI 응답</sub>
 </p>
 
-## 🎯 这是什么
+## 🎯 이것은 무엇인가
 
-**DeepSeek Harness（`dsh`）**是 DeepSeek 官方 2026-08-13 开源的 Agent 运行时——一个"一切皆插件"（everything is a plugin）的框架。
+**DeepSeek Harness(`dsh`)**는 DeepSeek가 2026-08-13에 공식 오픈소스로 공개한 Agent 런타임입니다 —— "모든 것이 플러그인"(everything is a plugin)인 프레임워크입니다.
 
 <img width="614" height="230" alt="image" src="https://github.com/user-attachments/assets/19482c24-2208-468e-ad38-9096d9270f8d" />
 
-但官方文档以架构说明为主，**缺少一条从零上手的路径**。
+하지만 공식 문서는 아키텍처 설명 위주라서 **처음부터 손에 익히는 경로가 빠져 있습니다**.
 
-**这本白皮书补上这条路**：从"什么是 Agent 运行时"讲起，到安装、使用、开发插件、性能调优——每一章都有可复制、可运行的命令，全部在本机实测验证。**目标是：任何一个开发者，跟着这本书都能从 0 到 1 用起来、写起来。**
+**이 백서가 그 경로를 채웁니다**: "Agent 런타임이란 무엇인가"부터 시작해서 설치, 사용, 플러그인 개발, 성능 튜닝까지 —— 모든 챕터가 그대로 복사해 실행할 수 있는 명령어이며, 전부 로컬 환경에서 실측 검증되었습니다. **목표는 어떤 개발자든 이 책을 따라오면 0부터 1까지 실제로 쓰고 만들 수 있게 하는 것입니다.**
 
-### 为什么值得读（而不是只看官方文档）
+### 왜 공식 문서만 보지 않고 이 책을 읽어야 하는가
 
-| 官方文档 | 本白皮书|
+| 공식 문서 | 이 백서 |
 |---|---|
-| 架构视角（AGENTS.md / architecture.md） | **新手视角**：一条从 0 到 1 的路径|
-| 零散示例 | **每章可运行**，命令全部实测|
-| 无中文教程 | **中文优先**，英文同步|
-| 无生态实操 | **真实插件/PR 拆解**（含踩坑与安全约束）|
+| 아키텍처 관점(AGENTS.md / architecture.md) | **초보자 관점**: 0부터 1까지 이어지는 하나의 경로 |
+| 산발적인 예제 | **모든 챕터가 실행 가능**, 명령어 전부 실측 |
+| 한국어 튜토리얼 없음 | **한국어 우선**, 중국어/영어와 함께 |
+| 생태계 실전 경험 부재 | **실제 플러그인/PR 분석**(트러블슈팅과 보안 제약 포함) |
 
-## 🎁 这本能给你什么
+## 🎁 이 책이 당신에게 주는 것
 
-
-| 如果你是… | 你会得到 |
+| 당신이… | 얻게 되는 것 |
 |---|---|
-| 🆕 **第一次接触 dsh** | 3 天从 0 到 1 学习路径（每天有目标+验收） |
-| 🛠 **开发者** | 可克隆的插件模板 + 配置参考大全（照抄能跑） |
-| ⚖️ **正在选型** | 6 个主流 Agent 对比（表格+文字）+ 同模型实测 benchmark |
-| ⚡ **要调优** | 推理档位策略 + 缓存命中率专题（实测 97%） |
-| 📚 **要案例** | 5 个真实复杂案例（含耗时/产物/验证） |
+| 🆕 **dsh를 처음 접했다면** | 3일 만에 0부터 1까지 배우는 학습 경로(매일 목표+검수 기준) |
+| 🛠 **개발자라면** | 그대로 클론해 쓸 수 있는 플러그인 템플릿 + 설정 레퍼런스 총정리 |
+| ⚖️ **도구를 선택 중이라면** | 6개 주류 Agent 비교(표+설명) + 동일 모델 실측 벤치마크 |
+| ⚡ **튜닝이 필요하다면** | 추론 강도(reasoning effort) 전략 + 캐시 적중률 특집(실측 97%) |
+| 📚 **사례가 필요하다면** | 5개 실제 복잡 사례(소요 시간/산출물/검증 포함) |
 
-## 🌟 感谢与社区
+## 🌟 감사와 커뮤니티
 
-首先要感谢每一位 Star、回复和投稿——这本手册不是一个人的作品，是 dsh 社区一起"长"出来的。
+먼저 모든 Star, 댓글, 기고에 감사드립니다 —— 이 핸드북은 한 사람의 작품이 아니라 dsh 커뮤니티가 함께 "키운" 결과물입니다.
 
-发布两天，很幸运得到了这些反馈：
+공개 이틀 만에 다음과 같은 반응을 얻었습니다:
 
-- ⭐ **280+ Stars**——对一份刚发布的教程来说远超预期，感谢大家认可
-- 💬 **官方库 195 帖回应**——我们持续在[讨论区](https://github.com/deepseek-ai/deepseek-harness/discussions)和大家一起踩坑、排障、交流
-- 🧠 **FAQ 里的 39 条问题大多来自真实提问**——社区问什么，我们沉淀什么（#380/#817/#1052…）
-- 📦 已向 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 提交收录 PR（[#33](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/33)，待合并）；阮一峰周刊自荐已提交
-- 🤝 与 30+ 社区项目互链（dsh-usage / dsh-sgme / AgentSoul / dsh-vault / egress-guard / agentmemory…）
+- ⭐ **280+ Stars** —— 갓 공개된 튜토리얼치고는 기대 이상이라 감사할 따름입니다
+- 💬 **공식 저장소에서 195개 응답** —— [디스커션](https://github.com/deepseek-ai/deepseek-harness/discussions)에서 계속 함께 트러블슈팅하고 교류하고 있습니다
+- 🧠 **FAQ의 39개 질문 대부분이 실제 질문에서 왔습니다** —— 커뮤니티가 묻는 것을 우리가 정리합니다(#380/#817/#1052…)
+- 📦 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)에 등재 PR 제출([#33](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/33), 병합 대기 중); 롼이펑(阮一峰) 주간지 자체 추천 제출 완료
+- 🤝 30+ 커뮤니티 프로젝트와 상호 링크(dsh-usage / dsh-sgme / AgentSoul / dsh-vault / egress-guard / agentmemory…)
 
-> 内容随讨论区持续更新（[沉淀流水线](./docs/research/feedback-pipeline.md)，19 项可追踪）。如果你觉得有用，Star 是对我们最大的支持。
+> 콘텐츠는 디스커션을 기반으로 지속적으로 업데이트됩니다([반영 파이프라인](./docs/research/feedback-pipeline.md), 19개 항목 추적 중). 도움이 되었다면 Star가 가장 큰 응원입니다.
 
-## 🔭 生态观察（第 15 章·全景报告）
+## 🔭 생태계 관찰(제15장 · 전체 리포트)
 
-> 把 **1804 个插件仓库**的数据盘点 × **780 帖讨论区**定性观察交叉验证，5 个关键结论：
+> **1804개 플러그인 저장소**의 데이터 집계 × **780개 디스커션 스레드** 정성 관찰을 교차 검증해 얻은 5가지 핵심 결론:
 
-| 结论 | 一句话 |
+| 결론 | 한 줄 요약 |
 |---|---|
-| 🪟 **Windows 是第一痛点** | 中文路径（15+ 帖同根因）/ koffi / 端口 / 子进程——数据讨论双证实 |
-| 🧩 **"官方没做，社区全做"** | 桌面壳 140+ / TUI / 记忆 77 / 视觉 132——健康互补 |
-| 🛡️ **安全审计活跃，工具稀缺** | sandbox 分类仅 9 个插件——**供给缺口** |
-| 🐛 **序列化 bug 家族** | unknown tool / reasoning 省略 / run_code 丢弃——rc 期主战场 |
-| 💰 **成本透明化是刚需** | 缓存命中 97% 实测 + 成本工具雨后春笋 |
+| 🪟 **Windows가 첫 번째 고통 지점** | 중국어(다국어) 경로(15+ 스레드 동일 원인) / koffi / 포트 / 자식 프로세스 —— 데이터와 디스커션이 이중으로 입증 |
+| 🧩 **"공식이 안 하면 커뮤니티가 다 한다"** | 데스크톱 쉘 140+ / TUI / 메모리 77 / 비전 132 —— 건강한 상호 보완 |
+| 🛡️ **보안 감사는 활발한데 도구는 희소** | sandbox 카테고리 플러그인 단 9개 —— **공급 공백** |
+| 🐛 **직렬화 버그 계열** | unknown tool / reasoning 생략 / run_code 유실 —— rc 시기의 주요 전장 |
+| 💰 **비용 투명화는 필수 수요** | 캐시 적중률 97% 실측 + 비용 도구가 우후죽순처럼 등장 |
 
-**6 个能力缝**（官方可优先建）：视觉通道 · 记忆 seam · 桌面 TUI 协议 · 评测闭环 · Windows 一等支持 · 插件 registry
-> 完整报告（含对开发者/选型者/观望者的建议）：[第 15 章](./docs/15-ecosystem-report.md)
+**6개의 능력 공백**(공식이 우선 채워야 할 영역): 비전 채널 · 메모리 seam · 데스크톱 TUI 프로토콜 · 평가 폐루프 · Windows 1급 지원 · 플러그인 레지스트리
+> 전체 리포트(개발자/도구 선택자/관망자를 위한 제안 포함): [제15장](./docs/15-ecosystem-report.ko.md)
 
-## 📚 目录（从 0 到 1）
+## 📚 목차(0부터 1까지)
 
 <div align="center">
 
-| 🗺️ **[学习路径（3 天计划）](./docs/roadmap.md)** | 从 0 到 1：每天目标 + 验收标准 + 学习原则 |
+| 🗺️ **[학습 경로(3일 계획)](./docs/roadmap.md)** | 0부터 1까지: 매일 목표 + 검수 기준 + 학습 원칙 |
 |---|---|
 
 </div>
 
-### 🟢 阶段 1 · 入门：认知与上手
+### 🟢 1단계 · 입문: 인지와 시작하기
 
 <div align="center">
 
-| 📖 **[第 1 章 · 认识 Harness](./docs/01-intro.md)** | ⚡ **[第 2 章 · 五分钟上手](./docs/02-quickstart.md)** |
+| 📖 **[제1장 · Harness 이해하기](./docs/01-intro.ko.md)** | ⚡ **[제2장 · 5분 만에 시작하기](./docs/02-quickstart.ko.md)** |
 |---|---|
-| 与主流 Agent 全面对比 · FAQ · [EN](./docs/01-intro.en.md) | 安装 · web/headless 双模式 · 推理档位 · [EN](./docs/02-quickstart.en.md) |
+| 주류 Agent와의 전면 비교 · FAQ · [中文](./docs/01-intro.md) · [EN](./docs/01-intro.en.md) | 설치 · web/headless 듀얼 모드 · 추론 강도 · [中文](./docs/02-quickstart.md) · [EN](./docs/02-quickstart.en.md) |
 
 </div>
 
-### 🔵 阶段 2 · 开发：骨架与插件
+### 🔵 2단계 · 개발: 골격과 플러그인
 
 <div align="center">
 
-| 🧩 **[第 3 章 · profile 与插件系统](./docs/03-profiles.md)** | 🛠️ **[第 4 章 · 插件开发实战](./docs/04-plugin-dev.md)** |
+| 🧩 **[제3장 · profile과 플러그인 시스템](./docs/03-profiles.ko.md)** | 🛠️ **[제4장 · 플러그인 개발 실전](./docs/04-plugin-dev.ko.md)** |
 |---|---|
-| 可定制骨架 · 插件挂载 · 扩展点 · 真实坑 | 从零写第一个插件（完整代码 + 测试 + 实机验证） |
+| 커스터마이즈 가능한 골격 · 플러그인 장착 · 확장 포인트 · 실제 트러블슈팅 | 첫 플러그인을 처음부터 작성(완전한 코드 + 테스트 + 실기 검증) |
 
 </div>
 
-### 🟠 阶段 3 · 实战：场景与调优
+### 🟠 3단계 · 실전: 시나리오와 튜닝
 
 <div align="center">
 
-| 📦 **[第 5 章 · dsh 应用场景](./docs/05-cases.md)** | 🚀 **[第 6 章 · 进阶与性能调优](./docs/06-advanced.md)** |
+| 📦 **[제5장 · dsh 활용 시나리오](./docs/05-cases.ko.md)** | 🚀 **[제6장 · 심화와 성능 튜닝](./docs/06-advanced.ko.md)** |
 |---|---|
-| 5 大场景 · 高缓存命中率专题 · 5 行业视角 | 推理档位策略 · 耗时分析 · 踩坑清单 |
+| 5대 시나리오 · 고캐시 적중률 특집 · 5개 산업 관점 | 추론 강도 전략 · 소요 시간 분석 · 트러블슈팅 목록 |
 
 </div>
 
-### 🟣 阶段 4 · 生态：能力与编排
+### 🟣 4단계 · 생태계: 능력과 오케스트레이션
 
 <div align="center">
 
-| 🌐 **[第 7 章 · 生态与资源](./docs/07-ecosystem.md)** | 🧰 **[第 8 章 · 工具与上下文系统](./docs/08-tools-context.md)** | 🔗 **[第 9 章 · MCP 子代理与工作流](./docs/09-mcp-subagent-workflow.md)** |
+| 🌐 **[제7장 · 생태계와 리소스](./docs/07-ecosystem.ko.md)** | 🧰 **[제8장 · 도구와 컨텍스트 시스템](./docs/08-tools-context.ko.md)** | 🔗 **[제9장 · MCP·서브에이전트·워크플로우](./docs/09-mcp-subagent-workflow.ko.md)** |
 |---|---|---|
-| 官方入口 · 参与路径 · 阅读建议 | 60+ 能力包地图 · 内置工具 · compaction | 外部工具接入 · 并行子代理 · 多步编排 |
+| 공식 채널 · 참여 경로 · 추천 읽기 순서 | 60+ 능력 패키지 지도 · 내장 도구 · compaction | 외부 도구 연동 · 병렬 서브에이전트 · 다단계 오케스트레이션 |
 
 </div>
 
-### 🔴 阶段 5 · 进阶：复杂案例与展望
+### 🔴 5단계 · 심화: 복잡한 사례와 전망
 
 <div align="center">
 
-| 🧪 **[第 10 章 · 复杂实战案例](./docs/10-complex-cases.md)** | 🔮 **[第 11 章 · 未来展望](./docs/11-future.md)** | ⚠️ **[第 12 章 · 已知不足与边界](./docs/12-limitations.md)** |
+| 🧪 **[제10장 · 복잡한 실전 사례](./docs/10-complex-cases.ko.md)** | 🔮 **[제11장 · 미래 전망](./docs/11-future.ko.md)** | ⚠️ **[제12장 · 알려진 한계와 경계](./docs/12-limitations.ko.md)** |
 |---|---|---|
-| dsh 真实跑出：数据清洗管线 186s · 5-bug 修复 94s | 技术/生态/竞争/机会/风险 预测 + 时间线 | rc 版诚实版：不稳定性 · 生态早期 · 跨平台短板 |
+| dsh가 실제로 해낸 것: 데이터 정제 파이프라인 186초 · 5개 버그 수정 94초 | 기술/생태계/경쟁/기회/리스크 예측 + 타임라인 | rc 버전 솔직 리뷰: 불안정성 · 초기 생태계 · 크로스플랫폼 약점 |
 
 </div>
 
 <div align="center">
 
-| 🛡️ **[第 13 章 · 安全与沙箱](./docs/13-security.md)** | 💰 **[第 14 章 · 缓存与成本](./docs/14-cost.md)** |
+| 🛡️ **[제13장 · 보안과 샌드박스](./docs/13-security.ko.md)** | 💰 **[제14장 · 캐시와 비용](./docs/14-cost.ko.md)** |
 |---|---|
-| 沙箱机制 · 权限模型 · 审批流 · 插件安全审计清单 | 缓存命中率实测 97% · 成本模型 · 推理档位联动 · 预算实战 |
+| 샌드박스 메커니즘 · 권한 모델 · 승인 흐름 · 플러그인 보안 감사 체크리스트 | 캐시 적중률 실측 97% · 비용 모델 · 추론 강도 연계 · 예산 실전 |
 
 </div>
 
-| 📊 **[第 15 章 · 生态全景报告](./docs/15-ecosystem-report.md)** | |
+| 📊 **[제15장 · 생태계 전체 리포트](./docs/15-ecosystem-report.ko.md)** | |
 |---|---|
-| 1804 插件 × 780 帖交叉验证：5 大洞察 + 6 个能力缝 + 生态参与者建议 |
+| 1804개 플러그인 × 780개 스레드 교차 검증: 5대 인사이트 + 6개 능력 공백 + 생태계 참여자를 위한 제안 |
 
-### 📎 附录
+### 📎 부록
 
 <div align="center">
 
-| 📚 **[附录 A·术语表](./docs/appendix-glossary.md)** · 📦 **[附录 B·官方包速查](./docs/appendix-packages.md)** · 📊 **[附录 C·Benchmark](./docs/benchmark.md)** |
+| 📚 **[부록 A·용어집](./docs/appendix-glossary.md)** · 📦 **[부록 B·공식 패키지 빠른 참조](./docs/appendix-packages.md)** · 📊 **[부록 C·Benchmark](./docs/benchmark.md)** |
 |---|
-| 30+ 术语 · 命令速查 · 官方 @deepseek-ai/* 包清单 · 同模型 3 Agent 实测 |
+| 30+ 용어 · 명령어 빠른 참조 · 공식 @deepseek-ai/* 패키지 목록 · 동일 모델 3개 Agent 실측 |
 
 </div>
 
-## 💎 内容精华速览（点开即看，不止链接）
+## 💎 핵심 내용 요약 미리보기(클릭하면 바로 확인, 링크만 있는 게 아닙니다)
 
 <details>
-<summary><b>📖 第 1 章：认识 DeepSeek Harness —— 三个直觉 + 能力矩阵</b></summary>
+<summary><b>📖 제1장: DeepSeek Harness 이해하기 —— 세 가지 직관 + 능력 매트릭스</b></summary>
 
-- **三个直觉**：dsh = Agent 的乐高底座；harness = 套在模型外的工程层；2026 = Agent 可编程时代
-- **核心事实**：MIT 开源 · TypeScript · "一切皆插件" · 2026-08-13 发布
-- **dsh vs 5 个主流 Agent 能力矩阵**（Claude Code / Codex / OpenCode / Gemini / Kimi）：开源✅、模型无关✅、**官方级插件体系**（独有）、自定义界面✅、headless CI✅
-- **选型决策**：深度定制+生态 → dsh；开箱即用 → Claude Code
+- **세 가지 직관**: dsh = Agent의 레고 베이스플레이트; harness = 모델 바깥을 감싸는 엔지니어링 레이어; 2026 = Agent 프로그래머블 시대
+- **핵심 사실**: MIT 오픈소스 · TypeScript · "모든 것이 플러그인" · 2026-08-13 공개
+- **dsh vs 5개 주류 Agent 능력 매트릭스**(Claude Code / Codex / OpenCode / Gemini / Kimi): 오픈소스✅, 모델 독립✅, **공식 레벨 플러그인 체계**(유일), 커스텀 UI✅, headless CI✅
+- **선택 기준**: 깊은 커스터마이징+생태계 → dsh; 바로 쓸 수 있는 것 → Claude Code
 </details>
 
 <details>
-<summary><b>⚡ 第 2 章：五分钟快速上手 —— 30 秒跑起来</b></summary>
+<summary><b>⚡ 제2장: 5분 빠른 시작 —— 30초 만에 실행</b></summary>
 
-- **一条命令启动**：`npx -y @deepseek-ai/dsh web` → http://127.0.0.1:3080
-- **双模式**：web（对话 UI）/ headless（`dsh --profile headless "任务"`，CI 友好）
+- **명령어 하나로 시작**: `npx -y @deepseek-ai/dsh web` → http://127.0.0.1:3080
+- **듀얼 모드**: web(대화 UI) / headless(`dsh --profile headless "작업"`, CI 친화적)
 
-- **推理档位三档**：`low`（最快/简单任务）· `high`（默认）· `max`（最强/复杂推理）——**性能关键：思考占工具链 90% 时间**。>注：`low` 为本白皮书实测网关（pi-ai/opencode-go）档位；**DeepSeek 官方适配器为 `off`（关闭思考/最快）/ `high` / `max`**（见 02-quickstart 2.3 注）
-- **第一个插件**：Git 面板 4 步挂载
+- **추론 강도 3단계**: `low`(가장 빠름/단순 작업) · `high`(기본값) · `max`(최고 성능/복잡한 추론) —— **성능의 핵심: 도구 체인 시간의 90%가 사고(thinking)에 쓰입니다**. > 참고: `low`는 이 백서가 실측한 게이트웨이(pi-ai/opencode-go) 등급이며, **DeepSeek 공식 어댑터는 `off`(사고 끄기/최고 속도) / `high` / `max`**입니다(02-quickstart 2.3절 참고)
+- **첫 플러그인**: Git 패널 4단계 장착
 </details>
 
 <details>
-<summary><b>🧩 第 3 章：profile 与插件系统 —— 可定制骨架</b></summary>
+<summary><b>🧩 제3장: profile과 플러그인 시스템 —— 커스터마이즈 가능한 골격</b></summary>
 
-- **profile** = bundle 栈 + 你的 patch 层（`package.json` + `cordis.patch.yml`）
-- **挂载插件只需 2 处改动**（加依赖 + 加 insert 行）
-- **host/client 双半**：一个 npm 包 = Node 侧工具/服务 + 浏览器侧 UI
-- **5 大扩展点**：`agent/request` waterfall、`conversationEvents`、`ctx.slots`、`settings`、`ctx.provide`
-- **6 个真实踩坑**：rc.1 依赖断裂、插件缺 main、`next()` 忘 await、类型不识别、ModuleLoader、端口占用
+- **profile** = bundle 스택 + 나만의 patch 레이어(`package.json` + `cordis.patch.yml`)
+- **플러그인 장착은 단 2곳만 수정**(의존성 추가 + insert 줄 추가)
+- **host/client 두 개의 반쪽**: npm 패키지 하나가 = Node 쪽 도구/서비스 + 브라우저 쪽 UI
+- **5대 확장 포인트**: `agent/request` waterfall, `conversationEvents`, `ctx.slots`, `settings`, `ctx.provide`
+- **6개의 실제 트러블슈팅**: rc.1 의존성 단절, 플러그인 main 누락, `next()` await 누락, 타입 인식 실패, ModuleLoader, 포트 점유
 </details>
 
 <details>
-<summary><b>🛠 第 4 章：插件开发实战 —— 完整可运行代码</b></summary>
+<summary><b>🛠 제4장: 플러그인 개발 실전 —— 완전히 실행 가능한 코드</b></summary>
 
-- **从零写提速插件**（完整拆解）：纯函数决策 + `agent/request` waterfall 注入
-- **核心技巧**：决策逻辑抽纯函数（单测毫秒级）→ 实机只验证"注入是否发生"
-- **3 条开发纪律**：先找扩展点 / 逻辑抽纯函数 / 实机验证不能省
-- **实机日志证据**：`calls=[{name:"write"}] => reasoningEffort=low`
+- **속도 개선 플러그인을 처음부터 작성**(완전 분석): 순수 함수 결정 로직 + `agent/request` waterfall 주입
+- **핵심 기법**: 결정 로직을 순수 함수로 분리(단위 테스트 밀리초 단위) → 실기에서는 "주입이 실제로 일어났는지"만 검증
+- **3가지 개발 원칙**: 확장 포인트를 먼저 찾을 것 / 로직을 순수 함수로 분리할 것 / 실기 검증은 생략 불가
+- **실기 로그 증거**: `calls=[{name:"write"}] => reasoningEffort=low`
 </details>
 
 <details>
-<summary><b>📦 第 5 章：实战案例 —— 三个真实开源 PR 的完整闭环</b></summary>
+<summary><b>📦 제5장: 실전 사례 —— 세 개의 실제 오픈소스 PR 완결편</b></summary>
 
-- **Git 面板 push/pull/fetch**（PR #10）：`--force-with-lease` 安全红线 + 本地 bare-repo 集成测试 + Playwright 实机验证
-- **HTML 草稿预览**（PR #11）：沙箱安全约束下的 srcdoc 决策纯函数
-- **提速插件示例**：长工具链每步思考降档
+- **Git 패널 push/pull/fetch**(PR #10): `--force-with-lease` 안전 레드라인 + 로컬 bare-repo 통합 테스트 + Playwright 실기 검증
+- **HTML 초안 미리보기**(PR #11): 샌드박스 보안 제약 하의 srcdoc 결정 순수 함수
+- **속도 개선 플러그인 예제**: 긴 도구 체인의 각 단계마다 사고 강도 다운그레이드
 </details>
 
 <details>
-<summary><b>🚀 第 6 章：进阶与性能调优 —— 时间花在哪</b></summary>
+<summary><b>🚀 제6장: 심화와 성능 튜닝 —— 시간이 어디로 가는가</b></summary>
 
-- **性能模型**：工具链任务 90% 时间在模型思考（每次工具调用前）
-- **档位策略**：简单轮次 low / 日常 high / 复杂 max——降档是最高杠杆提速
-- **7 个真实坑**：含"简单任务突然变快 = 缓存命中"的评测陷阱
-- **看成绩单三问**：谁测的 / 什么 harness / 验证器多严
+- **성능 모델**: 도구 체인 작업 시간의 90%가 모델 사고(매 도구 호출 전)에 쓰임
+- **강도 전략**: 단순한 라운드는 low / 일상 작업은 high / 복잡한 작업은 max —— 강도를 낮추는 것이 가장 효과적인 속도 개선 레버
+- **7개의 실제 트러블슈팅**: "단순 작업이 갑자기 빨라짐 = 캐시 적중"이라는 평가 함정 포함
+- **성적표를 볼 때 물어야 할 세 가지**: 누가 측정했나 / 어떤 harness인가 / 검증기는 얼마나 엄격한가
 </details>
 
 <details>
-<summary><b>🌐 第 7 章：生态与资源 —— 加入 dsh 生态的地图</b></summary>
+<summary><b>🌐 제7장: 생태계와 리소스 —— dsh 생태계에 합류하는 지도</b></summary>
 
-- **官方入口**：仓库 / API 文档 / Discord / Discussions
-- **当前状态**：官方暂不收外部 PR → **做 dsh-plugin 生态项目是官方点名的贡献方式**
-- **新手路径**：用起来 → 小 PR → 发插件 → 写内容
+- **공식 채널**: 저장소 / API 문서 / Discord / Discussions
+- **현재 상태**: 공식은 아직 외부 PR을 받지 않음 → **dsh-plugin 생태계 프로젝트를 만드는 것이 공식이 지목한 기여 방식**
+- **초보자 경로**: 사용해보기 → 작은 PR → 플러그인 공개 → 콘텐츠 작성
 </details>
 
 <details>
-<summary><b>🧰 第 8 章：工具与上下文系统 —— 能力引擎</b></summary>
+<summary><b>🧰 제8장: 도구와 컨텍스트 시스템 —— 능력 엔진</b></summary>
 
-- **60+ 官方能力包地图**：工具/上下文/会话/子代理/MCP/工作流/安全
-- **内置工具（实测）**：read/write/grep/glob/edit/bash/todo/skill
-- **产物追踪**：工具返回 locations → 对话末尾可打开产物
-- **上下文注入**：系统提示分层 + 技能目录
-- **长对话自动压缩**（compaction）+ 沙箱/权限/审批安全层
+- **60+ 공식 능력 패키지 지도**: 도구/컨텍스트/세션/서브에이전트/MCP/워크플로우/보안
+- **내장 도구(실측)**: read/write/grep/glob/edit/bash/todo/skill
+- **산출물 추적**: 도구가 반환하는 locations → 대화 끝에서 산출물 열람 가능
+- **컨텍스트 주입**: 시스템 프롬프트 계층화 + 스킬 카탈로그
+- **긴 대화 자동 압축**(compaction) + 샌드박스/권한/승인 보안 레이어
 </details>
 
 <details>
-<summary><b>🔗 第 9 章：MCP、子代理与工作流 —— Agent 系统化</b></summary>
+<summary><b>🔗 제9장: MCP, 서브에이전트, 워크플로우 —— Agent의 체계화</b></summary>
 
-- **MCP**：接入外部工具服务器（社区已有 token 追踪插件）
-- **子代理**：并行委派任务（大仓库调研/长任务分解）
-- **工作流**：确定性多步编排（拉取→清洗→报表→校验）
-- **四阶段新手路径**：单 Agent → +MCP → +子代理 → +工作流
+- **MCP**: 외부 도구 서버 연동(커뮤니티에 이미 토큰 추적 플러그인 존재)
+- **서브에이전트**: 작업 병렬 위임(대규모 저장소 조사/긴 작업 분해)
+- **워크플로우**: 결정론적 다단계 오케스트레이션(가져오기→정제→리포트→검증)
+- **4단계 초보자 경로**: 단일 Agent → +MCP → +서브에이전트 → +워크플로우
 </details>
 
 <details>
-<summary><b>🧪 第 10 章：复杂实战案例 —— dsh 真实跑出来的</b></summary>
+<summary><b>🧪 제10장: 복잡한 실전 사례 —— dsh가 실제로 해낸 것</b></summary>
 
-- **案例 A**：数据质量分析→清洗→可视化（186s，52→35 行归零，chart.png，含权衡说明）
-- **案例 B**：5-bug 修复 + 49 测试（94s，pytest 49 passed，覆盖除零/负数/精度边界）
-- **画像**：多步工具链自动编排 + 有判断力 + 产物可追踪
-- 隐私声明：全部合成数据/自造代码
+- **사례 A**: 데이터 품질 분석→정제→시각화(186초, 52→35줄로 축소, chart.png, 트레이드오프 설명 포함)
+- **사례 B**: 5개 버그 수정 + 49개 테스트(94초, pytest 49 passed, 0으로 나누기/음수/정밀도 경계 커버)
+- **특징**: 다단계 도구 체인 자동 오케스트레이션 + 판단력 + 산출물 추적 가능
+- 개인정보 관련 안내: 전부 합성 데이터/가상 코드
 </details>
 
 <details>
-<summary><b>📚 附录：术语表 + 命令速查</b></summary>
+<summary><b>📚 부록: 용어집 + 명령어 빠른 참조</b></summary>
 
-- **30+ 术语**：harness/profile/bundle/cordis/扩展点/waterfall/compaction…
-- **命令速查**：dsh 核心 / 环境 / 排障 / 插件开发
-- **Benchmark**：同模型 3 Agent 实测（3 轮中位数）
+- **30+ 용어**: harness/profile/bundle/cordis/확장 포인트/waterfall/compaction…
+- **명령어 빠른 참조**: dsh 핵심 / 환경 / 트러블슈팅 / 플러그인 개발
+- **Benchmark**: 동일 모델 3개 Agent 실측(3회 샘플링 중앙값)
 </details>
 
 <details>
-<summary><b>🔮 第 11 章：未来展望 —— 五个维度的预测</b></summary>
+<summary><b>🔮 제11장: 미래 전망 —— 다섯 가지 차원의 예측</b></summary>
 
-- **技术/生态/竞争/机会/风险** 五维度预测 + 时间线
-- **机会点**：官方生态早期，做 dsh-plugin 项目是入场红利
+- **기술/생태계/경쟁/기회/리스크** 5차원 예측 + 타임라인
+- **기회 포인트**: 공식 생태계 초기 단계, dsh-plugin 프로젝트를 만드는 것이 선점 보너스
 </details>
 
 <details>
-<summary><b>⚠️ 第 12 章：已知不足与边界 —— rc 版诚实说</b></summary>
+<summary><b>⚠️ 제12장: 알려진 한계와 경계 —— rc 버전 솔직 리뷰</b></summary>
 
-- **不稳定性**：rc 迭代快、破坏性变更频繁
-- **生态早期**：官方包 60+ 但插件生态刚起步
-- **跨平台短板**：Windows 家族踩坑记录（含 Node 版本红线）
+- **불안정성**: rc 반복 속도가 빠르고 파괴적 변경이 잦음
+- **초기 생태계**: 공식 패키지는 60+ 개지만 플러그인 생태계는 이제 막 시작
+- **크로스플랫폼 약점**: Windows 계열 트러블슈팅 기록(Node 버전 레드라인 포함)
 </details>
 
 <details>
-<summary><b>🛡️ 第 13 章：安全与沙箱模型 —— 敢上生产的关键</b></summary>
+<summary><b>🛡️ 제13장: 보안과 샌드박스 모델 —— 프로덕션에 올릴 수 있는 핵심 근거</b></summary>
 
-- **沙箱机制**：进程隔离（bwrap/Landlock/Seatbelt）+ 权限分级 + 审批流
-- **社区审计边界**：node:vm 非安全边界、approval 回环、workspace-write 递归删除等真实逃逸面
-- **插件安全审计清单**：第三方审计方法论（[#454](https://github.com/deepseek-ai/deepseek-harness/discussions/454)）
+- **샌드박스 메커니즘**: 프로세스 격리(bwrap/Landlock/Seatbelt) + 권한 등급화 + 승인 흐름
+- **커뮤니티가 확인한 경계**: node:vm이 안전 경계가 아님, approval 순환 참조, workspace-write의 재귀 삭제 등 실제 탈출 경로
+- **플러그인 보안 감사 체크리스트**: 서드파티 감사 방법론([#454](https://github.com/deepseek-ai/deepseek-harness/discussions/454))
 </details>
 
 <details>
-<summary><b>💰 第 14 章：缓存与成本工程 —— 把"便宜"变工程</b></summary>
+<summary><b>💰 제14장: 캐시와 비용 엔지니어링 —— "저렴함"을 엔지니어링으로 바꾸기</b></summary>
 
-- **缓存机制**：上下文缓存 + 命中率实测 97%（Flash 折扣 98% / Pro 99%+）
-- **成本模型**：token 花在哪 + 推理档位联动 + 真实任务预算
-- **可视化**：session log / 余额插件看每笔成本
+- **캐시 메커니즘**: 컨텍스트 캐시 + 적중률 실측 97%(Flash 할인 98% / Pro 99%+)
+- **비용 모델**: 토큰이 어디에 쓰이는가 + 추론 강도 연계 + 실제 작업 예산
+- **시각화**: session log / 잔액 플러그인으로 건별 비용 확인
 </details>
 
-## 🖥 演示（Demo）—— 直接看效果
+## 🖥 데모(Demo) —— 직접 결과 보기
 
-### ① Web UI 对话（`dsh web`）
+### ① Web UI 대화(`dsh web`)
 
 ```bash
 dsh web    # → http://127.0.0.1:3080
 ```
 
-![dsh Web UI 对话](./docs/assets/demo-web-chat.png)
+![dsh Web UI 대화](./docs/assets/demo-web-chat.png)
 
-### ② Headless CLI（一次性任务，适合脚本/CI）
+### ② Headless CLI(일회성 작업, 스크립트/CI에 적합)
 
-运行 `dsh --profile headless "你好，请用一句话介绍你自己"`（命令见 [🚀 快速体验](#-快速体验30-秒)）：
+`dsh --profile headless "안녕, 한 문장으로 자기소개 해줘"`를 실행하면(명령어는 [🚀 30초 빠른 체험](#-30초-빠른-체험) 참고):
 
 ```bash
-# → 你好！我是 DeepSeek 驱动的 AI 编程助手，可以帮你写代码、调试问题、
-#    处理文件、搜索资料，以及完成各种开发和办公任务。
+# → 안녕하세요! 저는 DeepSeek 기반 AI 코딩 어시스턴트입니다. 코드 작성, 디버깅,
+#    파일 처리, 자료 검색은 물론 다양한 개발 및 업무 작업을 도와드릴 수 있습니다.
 ```
 
-### ③ 插件生态（Git 面板，`dsh-better-sidebar`）
+### ③ 플러그인 생태계(Git 패널, `dsh-better-sidebar`)
 
-![dsh Git 面板（better-sidebar 插件）](./docs/assets/demo-git-panel.png)
+![dsh Git 패널(better-sidebar 플러그인)](./docs/assets/demo-git-panel.png)
 
-> 完整图文演示见 [📺 30 秒看懂 dsh](./docs/demo.md)。
+> 전체 이미지·텍스트 데모는 [📺 30초 만에 이해하는 dsh](./docs/demo.md) 참고.
 
-## 🧰 快速上手资产（精华直接看）
+## 🧰 빠른 시작 자료(핵심만 바로 확인)
 
 <details>
-<summary><b>📇 一页速查卡</b> —— 安装 · 命令 · 推理档位 · 排障</summary>
+<summary><b>📇 한 페이지 치트시트</b> —— 설치 · 명령어 · 추론 강도 · 트러블슈팅</summary>
 
 ```bash
-npx -y @deepseek-ai/dsh web          # 安装即启动 Web UI
-dsh --profile headless "任务"        # 一次性任务（脚本/CI）
+npx -y @deepseek-ai/dsh web          # 설치와 동시에 Web UI 실행
+dsh --profile headless "작업"        # 일회성 작업(스크립트/CI)
 ```
 
-推理档位：`low`（最快/简单轮次）· `high`（默认）· `max`（最强/复杂推理）——`low` 为实测网关（pi-ai）档位，**官方适配器用 `off`/`high`/`max`**
-> 工具链任务 90% 时间在思考——降档是最高杠杆提速
-> 完整卡：[docs/cheatsheet.md](./docs/cheatsheet.md)
+추론 강도: `low`(가장 빠름/단순 라운드) · `high`(기본값) · `max`(최고 성능/복잡한 추론) —— `low`는 실측 게이트웨이(pi-ai) 등급이며, **공식 어댑터는 `off`/`high`/`max`**를 사용
+> 도구 체인 작업 시간의 90%가 사고에 쓰입니다 —— 강도를 낮추는 것이 가장 효과적인 속도 개선 레버
+> 전체 카드: [docs/cheatsheet.md](./docs/cheatsheet.md)
 </details>
 
 <details>
-<summary><b>🔧 插件模板</b> —— 挂载只需 2 步</summary>
+<summary><b>🔧 플러그인 템플릿</b> —— 장착은 단 2단계</summary>
 
 ```yaml
-# ① package.json 加依赖
+# ① package.json에 의존성 추가
 "my-plugin": "link:C:\\path\\to\\my-plugin"
-# ② cordis.patch.yml 加挂载
+# ② cordis.patch.yml에 장착 추가
 - insert:
     - id: my-plugin
       name: my-plugin
@@ -370,114 +369,114 @@ dsh --profile headless "任务"        # 一次性任务（脚本/CI）
 ```bash
 cd ~/.dsh/profiles/web && pnpm install && dsh web
 ```
-> 可克隆模板（含纯函数+waterfall+测试）：[examples/plugin-template/](./examples/plugin-template/README.md)
+> 그대로 클론 가능한 템플릿(순수 함수+waterfall+테스트 포함): [examples/plugin-template/](./examples/plugin-template/README.md)
 </details>
 
 <details>
-<summary><b>⚙️ 配置参考</b> —— settings.yaml 核心</summary>
+<summary><b>⚙️ 설정 레퍼런스</b> —— settings.yaml 핵심</summary>
 
 ```yaml
 agent-default-model:
-  model: deepseek-v4-flash    # 或 deepseek-v4-pro
-  reasoningEffort: high       # off（关闭思考/最快）/ high（默认）/ max（最强）
+  model: deepseek-v4-flash    # 또는 deepseek-v4-pro
+  reasoningEffort: high       # off(사고 끄기/최고 속도) / high(기본값) / max(최고 성능)
 ```
-> 全字段（profile/cordis.patch.yml/常用场景）：[docs/config-reference.md](./docs/config-reference.md)
+> 전체 필드(profile/cordis.patch.yml/자주 쓰는 시나리오): [docs/config-reference.md](./docs/config-reference.md)
 </details>
 
 <details>
 <summary><b>❓ FAQ Top 5</b></summary>
 
-1. **dsh 是模型吗？** 不是——是运行时，模型通过 llm 插件接入
-2. **和 Claude Code 区别？** Claude Code 是"整车"，dsh 是"乐高底座"（开源可定制）
-3. **要花钱吗？** dsh 免费开源；对话按量付费（缓存折扣：Flash 档 98% / Pro 档 99%+，实测会话缓存命中率 97%）
-4. **插件装不上 404？** rc.1 依赖断裂——用 `^0.1.0-rc.6` 线
-5. **能进生产吗？** rc 阶段有破坏性变更；生态玩法现在可入
-> 完整 FAQ（六类）：[docs/faq.md](./docs/faq.md)
+1. **dsh는 모델인가요?** 아니요 —— 런타임이며, 모델은 llm 플러그인을 통해 연결됩니다
+2. **Claude Code와 차이는?** Claude Code는 "완성차", dsh는 "레고 베이스플레이트"(오픈소스로 커스터마이즈 가능)
+3. **비용이 드나요?** dsh 자체는 무료 오픈소스; 대화는 사용량 기반 과금(캐시 할인: Flash 등급 98% / Pro 등급 99%+, 실측 세션 캐시 적중률 97%)
+4. **플러그인 설치 시 404 오류?** rc.1 의존성 단절 —— `^0.1.0-rc.6` 라인 사용
+5. **프로덕션에 쓸 수 있나요?** rc 단계라 파괴적 변경 있음; 생태계를 탐색하는 용도로는 지금 시작 가능
+> 전체 FAQ(6개 카테고리): [docs/faq.md](./docs/faq.md)
 </details>
 
-## ⚖️ DSH vs 主流 Agent（能力矩阵）
+## ⚖️ DSH vs 주류 Agent(능력 매트릭스)
 
-| 维度 | **dsh** | Claude Code | OpenAI Codex | OpenCode | Gemini CLI | Kimi CLI |
+| 항목 | **dsh** | Claude Code | OpenAI Codex | OpenCode | Gemini CLI | Kimi CLI |
 |---|---|---|---|---|---|---|
-| 开源 | ✅ MIT | ❌ | ❌ | ✅ MIT | ❌ | ❌ |
-| 模型绑定 | 模型无关 | Claude 系 | GPT 系 | 任意 | Gemini 系 | Kimi 系 |
-| **插件体系** | **官方级：一切皆插件，60+ 官方包** | 配置/钩子 | 配置 | 配置 | 无 | 无 |
-| 自定义界面 | ✅（client 半） | ❌ | ❌ | 部分 | ❌ | ❌ |
-| 自动化/CI | ✅ headless | ✅ | ✅ | ✅ | ✅ | ✅ |
-| TUI | 插件可做 | ✅ 内置 | ✅ 内置 | ✅ 内置 | ✅ | ✅ |
-| 生态阶段 | 零日（2026-08-13） | 成熟 | 成熟 | 成熟 | 成熟 | 早期 |
-| 适合谁 | 深度定制+生态 | 开箱即用 | 开箱即用 | OpenCode 用户 | Google | Kimi |
+| 오픈소스 | ✅ MIT | ❌ | ❌ | ✅ MIT | ❌ | ❌ |
+| 모델 종속 | 모델 독립적 | Claude 계열 | GPT 계열 | 임의 | Gemini 계열 | Kimi 계열 |
+| **플러그인 체계** | **공식 레벨: 모든 것이 플러그인, 공식 패키지 60+** | 설정/훅 | 설정 | 설정 | 없음 | 없음 |
+| 커스텀 UI | ✅(client 반쪽) | ❌ | ❌ | 일부 | ❌ | ❌ |
+| 자동화/CI | ✅ headless | ✅ | ✅ | ✅ | ✅ | ✅ |
+| TUI | 플러그인으로 가능 | ✅ 내장 | ✅ 내장 | ✅ 내장 | ✅ | ✅ |
+| 생태계 단계 | 초일(2026-08-13) | 성숙 | 성숙 | 성숙 | 성숙 | 초기 |
+| 적합한 대상 | 깊은 커스터마이징+생태계 | 바로 사용 | 바로 사용 | OpenCode 사용자 | Google | Kimi |
 
-> 实测案例、同模型多 Agent 对比数据见 [第 1 章](./docs/01-intro.md) 与 benchmark 章节。
+> 실측 사례, 동일 모델 다중 Agent 비교 데이터는 [제1장](./docs/01-intro.ko.md)과 benchmark 챕터 참고.
 
-## 📊 同模型 × 不同 Agent 实测（2026-08-13）
+## 📊 동일 모델 × 다른 Agent 실측(2026-08-13)
 
-> 模型统一 `deepseek-v4-flash`（同一网关、同一 key），只对比 Agent 工程层。5 任务全部正确完成，差异在效率：
+> 모델은 `deepseek-v4-flash`로 통일(동일 게이트웨이, 동일 키), Agent 엔지니어링 레이어만 비교. 5개 작업 모두 정확히 완료되었고, 차이는 효율성에 있습니다:
 
-| Agent | 总耗时 | 正确率|
+| Agent | 총 소요 시간 | 정확도 |
 |---|---|---|
-| **omp** | **70s** | 45/45 ✅|
-| **dsh** | **130s** | 45/45 ✅|
-| **opencode** | 172s | 45/45 ✅|
+| **omp** | **70초** | 45/45 ✅ |
+| **dsh** | **130초** | 45/45 ✅ |
+| **opencode** | 172초 | 45/45 ✅ |
 
-> 5 任务 × 3 轮采样中位数（T1 创建文件 → T5 多文件重构），45/45 全对。完整方法/解读见 [📊 Benchmark 附录](./docs/benchmark.md)。
+> 5개 작업 × 3회 샘플링 중앙값(T1 파일 생성 → T5 다중 파일 리팩터링), 45/45 전부 정답. 전체 방법론/해석은 [📊 Benchmark 부록](./docs/benchmark.md) 참고.
 
 <p align="center">
-  <img src="./docs/assets/benchmark-bar.svg" alt="benchmark 柱状图：omp 70s / dsh 130s / opencode 172s" width="720"/>
+  <img src="./docs/assets/benchmark-bar.svg" alt="benchmark 막대그래프: omp 70초 / dsh 130초 / opencode 172초" width="720"/>
 </p>
 
 
-## 📄 白皮书 PDF
+## 📄 백서 PDF
 
-- **中文完整版**：[DeepSeek-Harness-白皮书.pdf](./DeepSeek-Harness-白皮书.pdf)（15 章 + 附录 ABC，~130k+ 字符，5.5MB）
-- **英文完整版**：[DeepSeek-Harness-Handbook.pdf](./DeepSeek-Harness-Handbook.pdf)（15 章 + 附录，83 页，约 160k 字符，1.7MB）
-- **韩文完整版**：[DeepSeek-Harness-핸드북.pdf](./DeepSeek-Harness-핸드북.pdf)（16 章 + 附录 ABC，148 页，3.9MB）
+- **중국어 완전판**: [DeepSeek-Harness-白皮书.pdf](./DeepSeek-Harness-白皮书.pdf)(15개 챕터 + 부록 ABC, ~13만+자, 5.5MB)
+- **영어 완전판**: [DeepSeek-Harness-Handbook.pdf](./DeepSeek-Harness-Handbook.pdf)(15개 챕터 + 부록, 83페이지, 약 16만자, 1.7MB)
+- **한국어 완전판**: [DeepSeek-Harness-핸드북.pdf](./DeepSeek-Harness-핸드북.pdf)(16개 챕터 + 부록 ABC, 148페이지, 3.9MB, 부록은 중국어 원문)
 
-## 🌐 与生态联动
+## 🌐 생태계와의 연계
 
-本白皮书的方法论来自真实开源实践：
-- [DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar) —— 社区侧边栏插件（第 5 章案例）
+이 백서의 방법론은 실제 오픈소스 실천에서 나왔습니다:
+- [DSH-better-sidebar](https://github.com/omdsh-dev/DSH-better-sidebar) —— 커뮤니티 사이드바 플러그인(제5장 사례)
 
-### 🧩 社区插件推荐（来自官方讨论区 / [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 精选）
+### 🧩 추천 커뮤니티 플러그인(공식 디스커션 / [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 선별)
 
-| 插件 | 用途 |
+| 플러그인 | 용도 |
 |---|---|
-| [dsh-specflow](https://github.com/lonelymoon87/dsh-specflow) | 规格驱动开发：技能+命令+目标实现+进度上下文 |
-| [dsh-gitflow](https://github.com/lonelymoon87/dsh-gitflow) | 审批门控的 Git 工作流（status/diff/commit/branch） |
-| [dsh-guardian](https://github.com/lonelymoon87/dsh-guardian) | 危险操作策略检查 + 输出脱敏 + 安全审查 |
-| [dsh-code-intel](https://github.com/lonelymoon87/dsh-code-intel) | Tree-sitter 符号索引 + 混合搜索 |
-| [dsh-tianshu-tui](https://github.com/huiliyi37/dsh-tianshu-tui) | 终端 UI（TUI） |
-| [dsh-computer-use](https://github.com/Anionex/dsh-computer-use) | 无障碍优先的 macOS 电脑控制 |
-| [dsh-data-agent](https://github.com/omdsh-dev/dsh-data-agent) | 连数据库写 SQL 的数据 Agent |
-| [dsh-balance-meter](https://github.com/Ghost011118/dsh-balance-meter) | 余额 + 会话成本实时显示 |
-| [dsh-usage](https://github.com/kestiany/dsh-usage) | Token 用量 + 费用估算 + 52 周热力图（#1169） |
-| [dsh-sgme](https://github.com/freehul/sgme) | 记忆引擎：按场景注入 + 自动剪枝（省 65-96% 会话，#1052） |
-| [AgentSoul](https://github.com/yuhui-sama/dsh-agentsoul) | 本地人格 + 长期记忆 + 记忆蒸馏（#1478） |
-| [dsh-vault](https://github.com/akslcw/dsh-vault) | 加密凭据保险库：TOTP/API Key/SSH 加密存储（#1457） |
+| [dsh-specflow](https://github.com/lonelymoon87/dsh-specflow) | 스펙 기반 개발: 스킬+명령어+목표 구현+진행 컨텍스트 |
+| [dsh-gitflow](https://github.com/lonelymoon87/dsh-gitflow) | 승인 게이트가 있는 Git 워크플로우(status/diff/commit/branch) |
+| [dsh-guardian](https://github.com/lonelymoon87/dsh-guardian) | 위험한 작업 정책 검사 + 출력 마스킹 + 보안 심사 |
+| [dsh-code-intel](https://github.com/lonelymoon87/dsh-code-intel) | Tree-sitter 심볼 인덱싱 + 하이브리드 검색 |
+| [dsh-tianshu-tui](https://github.com/huiliyi37/dsh-tianshu-tui) | 터미널 UI(TUI) |
+| [dsh-computer-use](https://github.com/Anionex/dsh-computer-use) | 접근성 우선의 macOS 컴퓨터 제어 |
+| [dsh-data-agent](https://github.com/omdsh-dev/dsh-data-agent) | DB에 연결해 SQL을 작성하는 데이터 Agent |
+| [dsh-balance-meter](https://github.com/Ghost011118/dsh-balance-meter) | 잔액 + 세션 비용 실시간 표시 |
+| [dsh-usage](https://github.com/kestiany/dsh-usage) | 토큰 사용량 + 비용 추정 + 52주 히트맵(#1169) |
+| [dsh-sgme](https://github.com/freehul/sgme) | 메모리 엔진: 시나리오별 주입 + 자동 정리(세션 65-96% 절감, #1052) |
+| [AgentSoul](https://github.com/yuhui-sama/dsh-agentsoul) | 로컬 페르소나 + 장기 기억 + 메모리 증류(#1478) |
+| [dsh-vault](https://github.com/akslcw/dsh-vault) | 암호화 자격 증명 보관소: TOTP/API Key/SSH 암호화 저장(#1457) |
 
-> 完整列表见 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)（122+ 插件）。想被收录？[社区案例征集](https://github.com/Electricitysheep/dsh-handbook/discussions/12)
+> 전체 목록은 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)(122+ 플러그인) 참고. 등재를 원하시나요? [커뮤니티 사례 모집](https://github.com/Electricitysheep/dsh-handbook/discussions/12)
 
-### 📣 官方讨论区活跃响应
+### 📣 공식 디스커션 활발한 응답
 
-已在 [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) Discussions 持续活跃响应（100+ 帖）：插件踩坑 #380 / 安全审计 #817 / 缓存成本 #1052/#1234 / 生态洞察帖 #839 等（[沉淀流水线](./docs/research/feedback-pipeline.md) 持续收录反馈）
+[deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) Discussions에서 지속적으로 활발하게 응답 중(100+ 게시물): 플러그인 트러블슈팅 #380 / 보안 감사 #817 / 캐시 비용 #1052/#1234 / 생태계 인사이트 게시물 #839 등([반영 파이프라인](./docs/research/feedback-pipeline.md)에서 피드백 지속 반영)
 
-## 🙏 贡献与反馈
+## 🙏 기여와 피드백
 
-- ⭐ 觉得有帮助？点个 Star 支持持续更新
-- 📝 **跑过真实案例？** 投稿收录进白皮书（署名 + 季度精选 PDF）：[社区案例征集](https://github.com/Electricitysheep/dsh-handbook/discussions/12) ← 直接回帖，模板已备好
-- 章节/命令失效？rc 版本迭代所致，欢迎 issue 指正
-- 想参与？见 [🤝 贡献指南（CONTRIBUTING）](./CONTRIBUTING.md) · 想看计划？[🗺️ 路线图（ROADMAP）](./ROADMAP.md) · 生态参与见 [第 7 章](./docs/07-ecosystem.md)
+- ⭐ 도움이 되었나요? Star로 지속적인 업데이트를 응원해주세요
+- 📝 **실제 사례를 실행해보셨나요?** 백서에 기고해 수록(서명 + 분기별 선정 PDF): [커뮤니티 사례 모집](https://github.com/Electricitysheep/dsh-handbook/discussions/12) ← 바로 댓글, 템플릿 준비되어 있음
+- 챕터/명령어가 작동하지 않나요? rc 버전 반복으로 인한 것이니 issue로 지적해주세요
+- 참여하고 싶으신가요? [🤝 기여 가이드(CONTRIBUTING)](./CONTRIBUTING.md) 참고 · 계획을 보고 싶으신가요? [🗺️ 로드맵(ROADMAP)](./ROADMAP.md) · 생태계 참여는 [제7장](./docs/07-ecosystem.ko.md) 참고
 
-## ℹ️ 版本说明
+## ℹ️ 버전 설명
 
-- 基于 dsh `0.1.0-rc.6` / DeepSeek-V4-Flash-0731（2026-08-13 开源）
-- 示例环境：Windows 11 + Node 24
+- dsh `0.1.0-rc.6` / DeepSeek-V4-Flash-0731(2026-08-13 오픈소스 공개) 기준
+- 예시 환경: Windows 11 + Node 24
 
-### 🔄 最近更新
+### 🔄 최근 업데이트
 
-- **15 章完整版**（第 13 安全沙箱 / 第 14 缓存成本 / 第 15 生态全景报告）+ 附录 A/B/C
-- 讨论区反馈持续沉淀：FAQ 39 条 / KVCache 规则 / 内置 Agent 预设 / run_code 异步坑（[沉淀流水线](./docs/research/feedback-pipeline.md)）
+- **15개 챕터 완전판**(제13장 보안 샌드박스 / 제14장 캐시 비용 / 제15장 생태계 전체 리포트) + 부록 A/B/C
+- 디스커션 피드백 지속 반영: FAQ 39개 / KVCache 규칙 / 내장 Agent 프리셋 / run_code 비동기 트러블슈팅([반영 파이프라인](./docs/research/feedback-pipeline.md))
 
-## 📜 许可
+## 📜 라이선스
 
-内容 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) · 示例代码 MIT
+콘텐츠 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) · 예시 코드 MIT

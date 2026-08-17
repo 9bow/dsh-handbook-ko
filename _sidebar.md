@@ -1,4 +1,4 @@
-* [首页](/README.md)
+* [홈](/README.md)
 * [学习路径 · 3 天计划](/docs/roadmap.md)
   * [Day 1：理解 + 跑起来（第 1-2 章）](/docs/roadmap.md?id=day-1：理解-跑起来（第-1-2-章）)
   * [Day 2：理解骨架 + 第一个插件（第 3-4 章）](/docs/roadmap.md?id=day-2：理解骨架-第一个插件（第-3-4-章）)
@@ -186,4 +186,4 @@
   * [综合统计](/docs/cases-round3.md?id=综合统计)
 
 ---
-*<span class="dsh-lang-links">[中文](./README.md) · [English](./README.en.md) · [한국어](./README.ko.md)</span> · [GitHub 仓库](https://github.com/Electricitysheep/dsh-handbook)*
+*<span class="dsh-lang-links">[中文](./README.zh.md) · [English](./README.en.md) · [한국어](./README.md)</span> · [GitHub 仓库](https://github.com/Electricitysheep/dsh-handbook)*
