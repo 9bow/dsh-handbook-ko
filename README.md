@@ -36,7 +36,7 @@ npx -y @deepseek-ai/dsh web
 dsh --profile headless "안녕, 한 문장으로 자기소개 해줘"
 ```
 
-> 체계적으로 배우고 싶다면 [🗺 학습 경로(3일 계획)](./docs/roadmap.md)를, 일단 실행부터 해보고 싶다면 [제2장: 5분 빠른 시작](./docs/02-quickstart.ko.md)을, 빠르게 찾아보고 싶다면 [📇 한 페이지 치트시트](./docs/cheatsheet.md)를 참고하세요
+> 체계적으로 배우고 싶다면 [🗺 학습 경로(3일 계획)](./docs/roadmap.ko.md)를, 일단 실행부터 해보고 싶다면 [제2장: 5분 빠른 시작](./docs/02-quickstart.ko.md)을, 빠르게 찾아보고 싶다면 [📇 한 페이지 치트시트](./docs/cheatsheet.ko.md)를 참고하세요
 
 <p align="center">
   <img src="./docs/assets/demo-webui.gif" alt="dsh Web UI 실측 데모" width="720"/>
@@ -106,7 +106,7 @@ dsh --profile headless "안녕, 한 문장으로 자기소개 해줘"
 
 <div align="center">
 
-| 🗺️ **[학습 경로(3일 계획)](./docs/roadmap.md)** | 0부터 1까지: 매일 목표 + 검수 기준 + 학습 원칙 |
+| 🗺️ **[학습 경로(3일 계획)](./docs/roadmap.ko.md)** | 0부터 1까지: 매일 목표 + 검수 기준 + 학습 원칙 |
 |---|---|
 
 </div>
@@ -177,7 +177,7 @@ dsh --profile headless "안녕, 한 문장으로 자기소개 해줘"
 
 <div align="center">
 
-| 📚 **[부록 A·용어집](./docs/appendix-glossary.md)** · 📦 **[부록 B·공식 패키지 빠른 참조](./docs/appendix-packages.md)** · 📊 **[부록 C·Benchmark](./docs/benchmark.md)** |
+| 📚 **[부록 A·용어집](./docs/appendix-glossary.ko.md)** · 📦 **[부록 B·공식 패키지 빠른 참조](./docs/appendix-packages.ko.md)** · 📊 **[부록 C·Benchmark](./docs/benchmark.ko.md)** |
 |---|
 | 30+ 용어 · 명령어 빠른 참조 · 공식 @deepseek-ai/* 패키지 목록 · 동일 모델 3개 Agent 실측 |
 
@@ -338,7 +338,7 @@ dsh web    # → http://127.0.0.1:3080
 
 ![dsh Git 패널(better-sidebar 플러그인)](./docs/assets/demo-git-panel.png)
 
-> 전체 이미지·텍스트 데모는 [📺 30초 만에 이해하는 dsh](./docs/demo.md) 참고.
+> 전체 이미지·텍스트 데모는 [📺 30초 만에 이해하는 dsh](./docs/demo.ko.md) 참고.
 
 ## 🧰 빠른 시작 자료(핵심만 바로 확인)
 
@@ -352,7 +352,7 @@ dsh --profile headless "작업"        # 일회성 작업(스크립트/CI)
 
 추론 강도: `low`(가장 빠름/단순 라운드) · `high`(기본값) · `max`(최고 성능/복잡한 추론) —— `low`는 실측 게이트웨이(pi-ai) 등급이며, **공식 어댑터는 `off`/`high`/`max`**를 사용
 > 도구 체인 작업 시간의 90%가 사고에 쓰입니다 —— 강도를 낮추는 것이 가장 효과적인 속도 개선 레버
-> 전체 카드: [docs/cheatsheet.md](./docs/cheatsheet.md)
+> 전체 카드: [docs/cheatsheet.ko.md](./docs/cheatsheet.ko.md)
 </details>
 
 <details>
@@ -380,7 +380,7 @@ agent-default-model:
   model: deepseek-v4-flash    # 또는 deepseek-v4-pro
   reasoningEffort: high       # off(사고 끄기/최고 속도) / high(기본값) / max(최고 성능)
 ```
-> 전체 필드(profile/cordis.patch.yml/자주 쓰는 시나리오): [docs/config-reference.md](./docs/config-reference.md)
+> 전체 필드(profile/cordis.patch.yml/자주 쓰는 시나리오): [docs/config-reference.ko.md](./docs/config-reference.ko.md)
 </details>
 
 <details>
@@ -391,7 +391,7 @@ agent-default-model:
 3. **비용이 드나요?** dsh 자체는 무료 오픈소스; 대화는 사용량 기반 과금(캐시 할인: Flash 등급 98% / Pro 등급 99%+, 실측 세션 캐시 적중률 97%)
 4. **플러그인 설치 시 404 오류?** rc.1 의존성 단절 —— `^0.1.0-rc.6` 라인 사용
 5. **프로덕션에 쓸 수 있나요?** rc 단계라 파괴적 변경 있음; 생태계를 탐색하는 용도로는 지금 시작 가능
-> 전체 FAQ(6개 카테고리): [docs/faq.md](./docs/faq.md)
+> 전체 FAQ(6개 카테고리): [docs/faq.ko.md](./docs/faq.ko.md)
 </details>
 
 ## ⚖️ DSH vs 주류 Agent(능력 매트릭스)
@@ -419,7 +419,7 @@ agent-default-model:
 | **dsh** | **130초** | 45/45 ✅ |
 | **opencode** | 172초 | 45/45 ✅ |
 
-> 5개 작업 × 3회 샘플링 중앙값(T1 파일 생성 → T5 다중 파일 리팩터링), 45/45 전부 정답. 전체 방법론/해석은 [📊 Benchmark 부록](./docs/benchmark.md) 참고.
+> 5개 작업 × 3회 샘플링 중앙값(T1 파일 생성 → T5 다중 파일 리팩터링), 45/45 전부 정답. 전체 방법론/해석은 [📊 Benchmark 부록](./docs/benchmark.ko.md) 참고.
 
 <p align="center">
   <img src="./docs/assets/benchmark-bar.svg" alt="benchmark 막대그래프: omp 70초 / dsh 130초 / opencode 172초" width="720"/>
@@ -430,7 +430,7 @@ agent-default-model:
 
 - **중국어 완전판**: [DeepSeek-Harness-白皮书.pdf](./DeepSeek-Harness-白皮书.pdf)(15개 챕터 + 부록 ABC, ~13만+자, 5.5MB)
 - **영어 완전판**: [DeepSeek-Harness-Handbook.pdf](./DeepSeek-Harness-Handbook.pdf)(15개 챕터 + 부록, 83페이지, 약 16만자, 1.7MB)
-- **한국어 완전판**: [DeepSeek-Harness-핸드북.pdf](./DeepSeek-Harness-핸드북.pdf)(16개 챕터 + 부록 ABC, 148페이지, 3.9MB, 부록은 중국어 원문)
+- **한국어 완전판**: [DeepSeek-Harness-핸드북.pdf](./DeepSeek-Harness-핸드북.pdf)(16개 챕터 + 부록 ABC 전체 한국어 번역, 150페이지, 3.7MB)
 
 ## 🌐 생태계와의 연계
 

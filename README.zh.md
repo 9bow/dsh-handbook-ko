@@ -431,7 +431,7 @@ agent-default-model:
 
 - **中文完整版**：[DeepSeek-Harness-白皮书.pdf](./DeepSeek-Harness-白皮书.pdf)（15 章 + 附录 ABC，~130k+ 字符，5.5MB）
 - **英文完整版**：[DeepSeek-Harness-Handbook.pdf](./DeepSeek-Harness-Handbook.pdf)（15 章 + 附录，83 页，约 160k 字符，1.7MB）
-- **韩文完整版**：[DeepSeek-Harness-핸드북.pdf](./DeepSeek-Harness-핸드북.pdf)（16 章 + 附录 ABC，148 页，3.9MB）
+- **韩文完整版**：[DeepSeek-Harness-핸드북.pdf](./DeepSeek-Harness-핸드북.pdf)（16 章 + 附录 ABC 全部韩文翻译，150 页，3.7MB）
 
 ## 🌐 与生态联动
 

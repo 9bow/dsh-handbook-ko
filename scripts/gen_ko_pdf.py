@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Generate DeepSeek-Harness-핸드북.docx (Korean, 16 chapters + Chinese-original appendices).
+Generate DeepSeek-Harness-핸드북.docx (Korean, 16 chapters + appendices A-C).
 
-Reads docs/01-16 *.ko.md (in numeric order) plus the Chinese appendix files
-(appendix-glossary.md / appendix-packages.md / benchmark.md, appended as-is with
-a Korean note), and produces a professionally typeset DOCX with:
+Reads docs/01-16 *.ko.md (in numeric order) plus the translated appendix
+files (appendix-glossary.ko.md / appendix-packages.ko.md / benchmark.ko.md),
+and produces a professionally typeset DOCX with:
   - cover page
   - static table of contents (no page numbers - LibreOffice headless cannot
     update a field-based TOC)
-  - 16 chapters, each starting on a new page
-  - Appendix section (Chinese original) with Korean labels
+  - 16 chapters + 3 appendices, each starting on a new page
   - footer page numbers
 
 Usage:
@@ -517,11 +516,13 @@ def build_toc(doc, chapters, appendices):
         p.paragraph_format.space_after = Pt(5)
         p.paragraph_format.line_spacing = 1.3
         add_inline(p, f"{num}  {title}", size=11)
-    for label, cn_title in appendices:
+    for label, appendix_title in appendices:
         p = doc.add_paragraph()
         p.paragraph_format.space_after = Pt(5)
         p.paragraph_format.line_spacing = 1.3
-        add_inline(p, f"{label} \u2014 {cn_title}", size=11)
+        # appendix_title already starts with its own "부록 X:" prefix (from the
+        # file's own H1), so no need to prepend label again like chapters do
+        add_inline(p, appendix_title, size=11)
     doc.add_page_break()
 
 
@@ -547,9 +548,9 @@ def main():
         if re.match(r"^\d{2}-.*\.ko\.md$", f)
     )
     appendix_files = [
-        ("\ubd80\ub85d A", "appendix-glossary.md"),   # 부록 A
-        ("\ubd80\ub85d B", "appendix-packages.md"),   # 부록 B
-        ("\ubd80\ub85d C", "benchmark.md"),           # 부록 C
+        ("\ubd80\ub85d A", "appendix-glossary.ko.md"),   # 부록 A
+        ("\ubd80\ub85d B", "appendix-packages.ko.md"),   # 부록 B
+        ("\ubd80\ub85d C", "benchmark.ko.md"),           # 부록 C
     ]
 
     build_cover(doc)
@@ -567,36 +568,30 @@ def main():
         num = f.split("-", 1)[0]
         chapters.append((num, first_h1 or f))
 
-    # Korean translations of the (still Chinese-original) appendix titles
-    appendix_ko_titles = [
-        "\uc6a9\uc5b4\uc9d1\uacfc \uba85\ub839\uc5b4 \ube60\ub978 \ucc38\uace0",           # 용어집과 명령어 빠른 참고
-        "\uacf5\uc2dd \ud328\ud0a4\uc9c0 \ube60\ub978 \ucc38\uace0 \ucd1d\uc815\ub9ac",    # 공식 패키지 빠른 참고 총정리
-        "\ub3d9\uc77c \ubaa8\ub378 \u00d7 \ub2e4\ub978 Agent \uc2e4\uce21 \ube44\uad50",   # 동일 모델 × 다른 Agent 실측 비교
-    ]
-    appendices = list(zip(appendix_files, appendix_ko_titles))
-    build_toc(doc, chapters, [(label, ko) for (label, _), ko in appendices])
+    # appendix titles come straight from each file's own H1 (now genuinely Korean)
+    appendix_titles = []
+    for _, fname in appendix_files:
+        with open(os.path.join(DOCS, fname), "r", encoding="utf-8") as fh:
+            first_h1 = None
+            for raw in clean_md_lines(fh.readlines()):
+                m = re.match(r"^#\s+(.+)$", raw.strip())
+                if m:
+                    first_h1 = m.group(1).strip()
+                    break
+        appendix_titles.append(first_h1 or fname)
+    appendices = list(zip(appendix_files, appendix_titles))
+    build_toc(doc, chapters, [(label, t) for (label, _), t in appendices])
 
     # chapters
     for f in chapter_files:
         print(f"  rendering {f}")
         render_markdown(doc, os.path.join(DOCS, f), chapter_h1=True)
 
-    # appendices (Chinese original, with Korean section note)
-    render_heading(doc, 1, "\ubd80\ub85d \u00b7 \u9644\u5f55\uff08\uc911\uad6d\uc5b4 \uc6d0\ubb38\uff09", page_break=True)  # 부록 · 附录（중국어 원문）
-    body_paragraph(
-        doc,
-        "\uc544\ub798 \ubd80\ub85d\uc740 \uc911\uad6d\uc5b4\ub85c \uc720\uc9c0\ub418\uace0 \uc788\uc73c\uba70, PDF\uac00 "
-        "\uc644\uc804\ud558\ub3c4\ub85d \uc6d0\ubb38 \uadf8\ub300\ub85c \uc218\ub85d\ud588\uc2b5\ub2c8\ub2e4. \ud574\ub2f9 "
-        "\ub0b4\uc6a9\uacfc \ub3d9\uc77c\ud55c \uac1c\ub150\uc740 \uc81c1~16\uc7a5 \ubcf8\ubb38\uc5d0\uc11c \ud55c\uad6d\uc5b4"
-        "\ub85c \ud655\uc778\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.",
-        # 아래 부록은 중국어로 유지되고 있으며, PDF가 완전하도록 원문 그대로 수록했습니다.
-        # 해당 내용과 동일한 개념은 제1~16장 본문에서 한국어로 확인할 수 있습니다.
-        size=10, italic=True, color=GRAY, space_after=10,
-    )
+    # appendices
     for label, fname in appendix_files:
         print(f"  rendering {fname} ({label})")
-        render_heading(doc, 2, f"{label} \u00b7 {fname.replace('.md', '')} (\uc911\uad6d\uc5b4 \uc6d0\ubb38)")  # (중국어 원문)
-        render_markdown(doc, os.path.join(DOCS, fname), chapter_h1=False)
+        render_markdown(doc, os.path.join(DOCS, fname), chapter_h1=True)
+
 
     add_page_number_footer(doc)
     doc.save(OUT)
