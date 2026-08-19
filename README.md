@@ -4,10 +4,10 @@
 
 **📖 [온라인으로 읽기](https://electricitysheep.github.io/dsh-handbook/) · 📄 [PDF 다운로드](./DeepSeek-Harness-핸드북.pdf) · ⭐ [Star로 응원하기](https://github.com/Electricitysheep/dsh-handbook/stargazers)**
 
-**1804개 플러그인 · 780개 디스커션 스레드 · 15개 챕터 핸드북 · 195개 커뮤니티 응답 · 280+ Stars**
+**1804개 플러그인 · 780개 디스커션 스레드 · 16개 챕터 핸드북(전체 한국어 번역) · 195개 커뮤니티 응답**
 
 <p align="center">
-  <img src="./docs/assets/banner.svg" alt="dsh-handbook banner" width="720"/>
+  <img src="./docs/assets/banner.ko.svg" alt="dsh-handbook 배너" width="720"/>
 </p>
 
 <div align="center">
@@ -15,7 +15,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/Electricitysheep/dsh-handbook?style=flat&color=yellow)
 ![GitHub release](https://img.shields.io/github/v/tag/Electricitysheep/dsh-handbook?label=release&color=success)
 ![dsh-handbook](https://img.shields.io/badge/dsh--handbook-백서-blue)
-![chapters](https://img.shields.io/badge/챕터-15-green)
+![chapters](https://img.shields.io/badge/챕터-16-green)
 ![pdf](https://img.shields.io/badge/PDF-5.5MB-orange)
 ![license](https://img.shields.io/badge/license-CC--BY--NC--SA--4.0-lightgrey)
 ![dsh](https://img.shields.io/badge/dsh-0.1.0--rc.6-8A2BE2)

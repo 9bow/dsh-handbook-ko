@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DeepSeek Harness 白皮书 · dsh-handbook</title>
-  <meta name="description" content="DeepSeek Harness (dsh) 从 0 到 1 深度手册：14 章中文教程 + 同模型多 Agent 实测 benchmark + 快速上手资产。">
-  <meta property="og:title" content="DeepSeek Harness 白皮书">
-  <meta property="og:description" content="DeepSeek Harness (dsh) 从 0 到 1 深度手册：14 章中文教程 + 实测 benchmark。">
+  <title>DeepSeek Harness 핸드북 · dsh-handbook</title>
+  <meta name="description" content="DeepSeek Harness (dsh) 0부터 1까지 심층 핸드북: 16개 챕터 한국어 튜토리얼 + 동일 모델 다중 Agent 실측 benchmark + 빠른 시작 자료.">
+  <meta property="og:title" content="DeepSeek Harness 핸드북">
+  <meta property="og:description" content="DeepSeek Harness (dsh) 0부터 1까지 심층 핸드북: 16개 챕터 한국어 튜토리얼 + 실측 benchmark.">
   <meta property="og:type" content="website">
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f1117">
@@ -518,7 +518,7 @@
   <div id="app">
     <div class="dsh-loader">
       <span class="dsh-loader-ring"></span>
-      <span>dsh 白皮书加载中</span>
+      <span>dsh 핸드북 로딩 중</span>
     </div>
   </div>
 
@@ -540,29 +540,38 @@
        2. mermaidSrcSaver：在 docsify-mermaid 渲染前保存图源码，
           切换主题时用它重渲染（light/dark 配色不同）。
        ──────────────────────────────────────────────────────────── */
-    var DSH_ALERTS = {
-      NOTE:      { label: '备注',   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>' },
-      TIP:       { label: '提示',   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.4 1 2.3h6c0-.9.4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg>' },
-      IMPORTANT: { label: '重要',   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' },
-      WARNING:   { label: '警告',   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>' },
-      CAUTION:   { label: '注意',   icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.86 2h8.28L22 7.86v8.28L16.14 22H7.86L2 16.14V7.86L7.86 2z"/><path d="M12 8v4M12 16h.01"/></svg>' }
+    var DSH_ALERT_ICONS = {
+      NOTE:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>',
+      TIP:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.4 1 2.3h6c0-.9.4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg>',
+      IMPORTANT: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+      WARNING:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>',
+      CAUTION:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.86 2h8.28L22 7.86v8.28L16.14 22H7.86L2 16.14V7.86L7.86 2z"/></svg>'
+    };
+    // 按当前页面语言选择标签（dshCurrentLang 定义在本文件靠后处，但函数声明会
+    // 整体提升，且此回调只在 docsify 渲染每页时才执行，届时早已定义完毕）
+    var DSH_ALERT_LABELS = {
+      zh: { NOTE: '备注', TIP: '提示', IMPORTANT: '重要', WARNING: '警告', CAUTION: '注意' },
+      en: { NOTE: 'Note', TIP: 'Tip', IMPORTANT: 'Important', WARNING: 'Warning', CAUTION: 'Caution' },
+      ko: { NOTE: '참고', TIP: '팁', IMPORTANT: '중요', WARNING: '경고', CAUTION: '주의' }
     };
 
     function dshAlertPlugin(hook) {
       hook.afterEach(function (html, next) {
+        var labels = DSH_ALERT_LABELS[dshCurrentLang()] || DSH_ALERT_LABELS.zh;
         next(html.replace(/<blockquote>([\s\S]*?)<\/blockquote>/g, function (block, inner) {
           // marked 可能把标记渲染成 <p>[!TYPE]</p> 或 <p>[!TYPE] 正文…</p> 两种形态
           var m = inner.match(/^\s*(?:<p>\s*)?\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i);
           if (!m) return block;
           var type = m[1].toUpperCase();
-          var def = DSH_ALERTS[type];
+          var icon = DSH_ALERT_ICONS[type];
+          var label = labels[type];
           var rest = inner.slice(m[0].length);
           if (/^\s*(?:<\/p>|<br\s*\/?>)/i.test(rest)) {
             rest = rest.replace(/^\s*(?:<\/p>|<br\s*\/?>)/i, ''); // 标记独占一段，整段去掉
           } else {
             rest = '<p>' + rest; // 标记和正文同段，补回被吃掉的开标签
           }
-          var title = '<p class="dsh-alert-title">' + def.icon + '<span>' + def.label + '</span></p>';
+          var title = '<p class="dsh-alert-title">' + icon + '<span>' + label + '</span></p>';
           return '<div class="dsh-alert dsh-alert-' + type.toLowerCase() + '">' + title + rest + '</div>';
         }));
       });
@@ -731,15 +740,18 @@
         if (lang === dshNativeLangOf(base)) {
           a.setAttribute('href', '#/' + base);
           a.textContent = a.dataset.origText;
+          a.title = a.dataset.origText; // docsify 用原文设置了 title 提示，需同步更新，否则悬浮仍显示原语言
           return;
         }
         var data = DSH_LANG_DATA[lang];
         if (data && data.pages.indexOf(base) >= 0) {
           a.setAttribute('href', '#/' + base + '.' + lang);
           a.textContent = data.labels[base] || a.dataset.origText;
+          a.title = a.textContent;
         } else {
           a.setAttribute('href', '#/' + base);
           a.textContent = a.dataset.origText; // 无对应语言版本，回退到该页原生语言
+          a.title = a.dataset.origText;
         }
       });
 
@@ -755,9 +767,9 @@
     }
 
     window.$docsify = {
-      name: 'DeepSeek Harness 白皮书',
+      name: 'DeepSeek Harness 핸드북',
       nameLink: '/',
-      repo: 'https://github.com/Electricitysheep/dsh-handbook',
+      repo: 'https://github.com/9bow/dsh-handbook-ko',
       loadSidebar: true,
       alias: {
         '/.*/_sidebar.md': '/_sidebar.md'
@@ -771,14 +783,14 @@
       search: {
         maxAge: 86400000,
         paths: 'auto',
-        placeholder: '搜索文档',
-        noData: '没有找到结果',
+        placeholder: '문서 검색',
+        noData: '검색 결과 없음',
         depth: 3
       },
       copyCode: {
-        buttonText: '复制',
-        errorText: '复制失败',
-        successText: '已复制'
+        buttonText: '복사',
+        errorText: '복사 실패',
+        successText: '복사 완료'
       },
       plugins: [dshAlertPlugin, dshMermaidSrcSaver, dshTogglePlacer, dshLangPlugin]
     };
